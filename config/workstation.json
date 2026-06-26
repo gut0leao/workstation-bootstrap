@@ -1,0 +1,21 @@
+{
+  "profile": "personal",
+  "wslDistribution": "Ubuntu",
+  "weztermTheme": "Tokyo Night",
+  "fontName": "JetBrainsMono Nerd Font",
+  "installWindowsApps": true,
+  "installUbuntuPackages": true,
+  "installFonts": true,
+  "configureVSCode": true,
+  "profiles": {
+    "personal": {
+      "description": "Perfil padrão para máquina pessoal com privilégios administrativos."
+    },
+    "corporate": {
+      "description": "Perfil conservador para ambiente corporativo com possíveis restrições."
+    },
+    "minimal": {
+      "description": "Perfil mínimo com apenas o essencial."
+    }
+  }
+}

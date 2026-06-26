@@ -1,0 +1,90 @@
+format = """
+$directory\
+$git_branch\
+$git_status\
+$fill\
+$python\
+$nodejs\
+$php\
+$ruby\
+$docker_context\
+$cmd_duration
+$character"""
+
+add_newline = true
+
+[directory]
+style = "bold cyan"
+truncation_length = 3
+truncate_to_repo = false
+read_only = " 🔒"
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+
+[git_status]
+style = "bold yellow"
+
+[fill]
+symbol = " "
+
+[python]
+symbol = "🐍 "
+style = "green"
+
+[nodejs]
+symbol = "⬢ "
+style = "green"
+
+[php]
+symbol = "🐘 "
+style = "blue"
+
+[ruby]
+symbol = "💎 "
+style = "red"
+
+[docker_context]
+symbol = "🐳 "
+style = "blue"
+
+[cmd_duration]
+min_time = 1000
+format = "[$duration]($style)"
+style = "yellow"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vicmd_symbol = "[❮](bold yellow)"
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[azure]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[hostname]
+disabled = true
+
+[username]
+disabled = true
+
+[memory_usage]
+disabled = true
+
+[battery]
+disabled = true
+
+[package]
+disabled = true
+
+[time]
+disabled = true

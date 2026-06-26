@@ -1,0 +1,22 @@
+[
+  {
+    "name": "WezTerm",
+    "wingetId": "wez.wezterm",
+    "enabled": true
+  },
+  {
+    "name": "Visual Studio Code",
+    "wingetId": "Microsoft.VisualStudioCode",
+    "enabled": true
+  },
+  {
+    "name": "GitHub CLI",
+    "wingetId": "GitHub.cli",
+    "enabled": false
+  },
+  {
+    "name": "Git for Windows",
+    "wingetId": "Git.Git",
+    "enabled": false
+  }
+]

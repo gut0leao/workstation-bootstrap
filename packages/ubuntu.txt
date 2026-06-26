@@ -1,0 +1,16 @@
+zsh
+git
+curl
+wget
+unzip
+build-essential
+ca-certificates
+software-properties-common
+eza
+zoxide
+fzf
+bat
+ripgrep
+fd-find
+btop
+direnv
