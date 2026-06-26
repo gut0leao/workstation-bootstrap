@@ -55,12 +55,14 @@ function Invoke-LocalBootstrap {
   & $BootstrapPath @parameters
 }
 
-$localBootstrapPath = Join-Path $PSScriptRoot 'bootstrap.ps1'
+if (-not [string]::IsNullOrWhiteSpace($PSScriptRoot)) {
+  $localBootstrapPath = Join-Path $PSScriptRoot 'bootstrap.ps1'
 
-if (Test-Path -LiteralPath $localBootstrapPath) {
-  Write-Host "[INFO] Found local bootstrap.ps1; running from current checkout."
-  Invoke-LocalBootstrap -BootstrapPath $localBootstrapPath
-  exit $LASTEXITCODE
+  if (Test-Path -LiteralPath $localBootstrapPath) {
+    Write-Host "[INFO] Found local bootstrap.ps1; running from current checkout."
+    Invoke-LocalBootstrap -BootstrapPath $localBootstrapPath
+    exit $LASTEXITCODE
+  }
 }
 
 $downloadUrl = "https://github.com/$Repository/archive/refs/heads/$Branch.zip"
