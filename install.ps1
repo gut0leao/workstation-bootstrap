@@ -55,8 +55,20 @@ function Invoke-LocalBootstrap {
   & $BootstrapPath @parameters
 }
 
-if (-not [string]::IsNullOrWhiteSpace($PSScriptRoot)) {
-  $localBootstrapPath = Join-Path $PSScriptRoot 'bootstrap.ps1'
+function Get-InstallerRoot {
+  $pathProperty = $script:MyInvocation.MyCommand.PSObject.Properties['Path']
+
+  if ($pathProperty -and -not [string]::IsNullOrWhiteSpace([string]$pathProperty.Value)) {
+    return Split-Path -Parent ([string]$pathProperty.Value)
+  }
+
+  return $null
+}
+
+$installerRoot = Get-InstallerRoot
+
+if (-not [string]::IsNullOrWhiteSpace($installerRoot)) {
+  $localBootstrapPath = Join-Path $installerRoot 'bootstrap.ps1'
 
   if (Test-Path -LiteralPath $localBootstrapPath) {
     Write-Host "[INFO] Found local bootstrap.ps1; running from current checkout."
