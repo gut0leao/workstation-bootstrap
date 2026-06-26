@@ -242,6 +242,20 @@ Regras:
 - configurar `git init.defaultBranch=main`;
 - validar ferramentas modernas após instalação.
 
+## Export
+
+Regras:
+
+- exportar para `exports/<timestamp>/`;
+- copiar manifesto local quando existir;
+- exportar snapshot do host;
+- exportar lista `winget`;
+- exportar status/lista WSL;
+- exportar extensões VS Code;
+- copiar `.wslconfig` e `wezterm.lua` aplicados quando existirem;
+- respeitar `-DryRun`;
+- atualizar o manifesto com o último caminho exportado.
+
 ## Resultado esperado atual
 
 Ao final do fluxo Windows, abrir o WezTerm no Windows deve levar diretamente ao Ubuntu/WSL usando zsh com Starship configurado, fonte Nerd Font e ferramentas modernas instaladas.

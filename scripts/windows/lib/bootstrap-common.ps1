@@ -428,9 +428,7 @@ function Invoke-PendingImplementationGuards {
     return
   }
 
-  if ($Export) {
-    Add-SummaryItem -Bucket Pending -Message "Export mode is not implemented yet."
-  }
+  $null = $Export
 }
 
 function Write-FinalSummary {

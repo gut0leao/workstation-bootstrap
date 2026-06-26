@@ -83,10 +83,17 @@ O bootstrap Windows já executa uma base funcional:
 - instala JetBrainsMono Nerd Font para o usuário atual quando ausente;
 - instala extensões VS Code declaradas em `packages/vscode-extensions.txt`;
 - executa `scripts/ubuntu/bootstrap.sh` dentro da distro WSL configurada;
+- exporta estado e configurações atuais para `exports/<timestamp>/`;
 - respeita `-DryRun`;
 - respeita `-SkipWindowsApps`;
 - respeita `-SkipWSL`;
 - não marca aplicativos já existentes como gerenciados pelo projeto.
+
+Exportação:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\bootstrap.ps1 -Export
+```
 
 Validação sem instalar nada:
 

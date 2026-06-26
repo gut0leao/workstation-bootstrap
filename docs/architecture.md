@@ -135,6 +135,8 @@ Scripts especializados para tarefas do host Windows.
 
 `scripts/windows/invoke-ubuntu-bootstrap.ps1` chama `scripts/ubuntu/bootstrap.sh` dentro da distro WSL configurada.
 
+`scripts/windows/export-config.ps1` exporta estado, versões e configurações atuais para `exports/<timestamp>/`.
+
 ### `scripts/ubuntu/`
 
 Scripts especializados para tarefas Ubuntu. Hoje eles rodam dentro do WSL. No futuro, devem ser reutilizáveis pelo fluxo Ubuntu host quando não dependerem de WSL.

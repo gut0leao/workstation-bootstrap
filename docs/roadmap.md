@@ -45,6 +45,7 @@
 - Exportar versões instaladas.
 - Registrar host e ambiente Linux na exportação.
 - Registrar artefatos gerenciados pelo projeto para uso futuro pelo reset.
+- Exportar estado e configurações para `exports/<timestamp>/`.
 
 ## Fase 6 — Reset controlado para retestes
 

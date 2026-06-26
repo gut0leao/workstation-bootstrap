@@ -37,6 +37,7 @@ $projectRoot = $PSScriptRoot
 . (Join-Path $projectRoot 'scripts/windows/install-fonts.ps1')
 . (Join-Path $projectRoot 'scripts/windows/configure-vscode.ps1')
 . (Join-Path $projectRoot 'scripts/windows/invoke-ubuntu-bootstrap.ps1')
+. (Join-Path $projectRoot 'scripts/windows/export-config.ps1')
 
 Initialize-BootstrapContext -ProjectRoot $projectRoot
 
@@ -122,6 +123,12 @@ try {
   Invoke-PendingImplementationGuards `
     -Reset ([bool]$Reset) `
     -Export ([bool]$Export)
+
+  if ($Export) {
+    Export-WorkstationConfig `
+      -State $state `
+      -IsDryRun ([bool]$DryRun)
+  }
 
   Save-StateManifest `
     -State $state `
