@@ -62,6 +62,14 @@ Lista inicial em `packages/windows.json`:
 - GitHub CLI, opcional;
 - Git for Windows, opcional.
 
+Regras:
+
+- instalar apenas entradas com `enabled: true`;
+- detectar apps já instalados antes de chamar `winget install`;
+- não registrar apps pré-existentes como gerenciados pelo projeto;
+- registrar no manifesto apenas apps instalados pelo projeto;
+- respeitar `-DryRun` e `-SkipWindowsApps`.
+
 ## Pacotes Ubuntu
 
 Lista inicial em `packages/ubuntu.txt`.

@@ -226,6 +226,33 @@ function Add-RunRecord {
   Add-SummaryItem -Bucket Executed -Message "Recorded current run in state manifest object."
 }
 
+function Add-ManagedWindowsApp {
+  param(
+    [Parameter(Mandatory)]$State,
+    [Parameter(Mandatory)][string]$Name,
+    [Parameter(Mandatory)][string]$WingetId,
+    [Parameter(Mandatory)][string]$Source
+  )
+
+  $existingApps = @($State.managed.windowsApps)
+  $alreadyTracked = $existingApps | Where-Object { $_.wingetId -eq $WingetId } | Select-Object -First 1
+
+  if ($alreadyTracked) {
+    $alreadyTracked.lastSeenAt = (Get-Date).ToUniversalTime().ToString('o')
+    return
+  }
+
+  $app = [ordered]@{
+    name        = $Name
+    wingetId    = $WingetId
+    source      = $Source
+    installedAt = (Get-Date).ToUniversalTime().ToString('o')
+    lastSeenAt  = (Get-Date).ToUniversalTime().ToString('o')
+  }
+
+  $State.managed.windowsApps = @($existingApps + $app)
+}
+
 function Invoke-ResetGuard {
   param(
     [Parameter(Mandatory)][bool]$Reset,
@@ -256,7 +283,6 @@ function Invoke-PendingImplementationGuards {
     return
   }
 
-  Add-SummaryItem -Bucket Pending -Message "Windows application installation is not implemented yet."
   Add-SummaryItem -Bucket Pending -Message "WSL/Ubuntu installation and configuration are not implemented yet."
   Add-SummaryItem -Bucket Pending -Message "Ubuntu package bootstrap is not implemented yet."
 

@@ -121,6 +121,8 @@ Scripts especializados para tarefas do host Windows.
 
 `scripts/windows/lib/` contém funções compartilhadas usadas pelo orquestrador e pelos scripts especializados.
 
+`scripts/windows/install-winget-packages.ps1` instala aplicativos Windows declarados em `packages/windows.json`, respeitando `DryRun`, `enabled` e estado atual do sistema.
+
 ### `scripts/ubuntu/`
 
 Scripts especializados para tarefas Ubuntu. Hoje eles rodam dentro do WSL. No futuro, devem ser reutilizáveis pelo fluxo Ubuntu host quando não dependerem de WSL.

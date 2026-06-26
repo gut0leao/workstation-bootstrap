@@ -30,6 +30,7 @@ $ErrorActionPreference = 'Stop'
 $projectRoot = $PSScriptRoot
 . (Join-Path $projectRoot 'scripts/windows/lib/bootstrap-common.ps1')
 . (Join-Path $projectRoot 'scripts/windows/check-prereqs.ps1')
+. (Join-Path $projectRoot 'scripts/windows/install-winget-packages.ps1')
 
 Initialize-BootstrapContext -ProjectRoot $projectRoot
 
@@ -64,6 +65,17 @@ try {
     -Reset ([bool]$Reset) `
     -ResetScope $ResetScope `
     -ConfirmDestructive ([bool]$ConfirmDestructive)
+
+  if (-not $Reset) {
+    if ($SkipWindowsApps) {
+      Add-SummaryItem -Bucket Ignored -Message "Skipped Windows app installation because -SkipWindowsApps was provided."
+    }
+    else {
+      Invoke-WingetPackageInstall `
+        -State $state `
+        -IsDryRun ([bool]$DryRun)
+    }
+  }
 
   Invoke-PendingImplementationGuards `
     -Reset ([bool]$Reset) `
