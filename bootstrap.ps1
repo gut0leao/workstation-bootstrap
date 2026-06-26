@@ -35,6 +35,7 @@ $projectRoot = $PSScriptRoot
 . (Join-Path $projectRoot 'scripts/windows/install-wsl.ps1')
 . (Join-Path $projectRoot 'scripts/windows/configure-wezterm.ps1')
 . (Join-Path $projectRoot 'scripts/windows/install-fonts.ps1')
+. (Join-Path $projectRoot 'scripts/windows/configure-vscode.ps1')
 
 Initialize-BootstrapContext -ProjectRoot $projectRoot
 
@@ -101,6 +102,15 @@ try {
     Install-JetBrainsMonoNerdFont `
       -State $state `
       -IsDryRun ([bool]$DryRun)
+
+    if ($config.configureVSCode) {
+      Install-VSCodeExtensions `
+        -State $state `
+        -IsDryRun ([bool]$DryRun)
+    }
+    else {
+      Add-SummaryItem -Bucket Ignored -Message "Skipped VS Code configuration because configureVSCode is false."
+    }
   }
 
   Invoke-PendingImplementationGuards `

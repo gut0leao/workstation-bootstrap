@@ -219,6 +219,16 @@ Regras:
 - registrar no manifesto apenas fontes instaladas pelo projeto;
 - respeitar `-DryRun`.
 
+## VS Code
+
+Regras:
+
+- instalar extensões declaradas em `packages/vscode-extensions.txt`;
+- detectar extensões já instaladas antes de chamar `code --install-extension`;
+- não registrar extensões pré-existentes como gerenciadas pelo projeto;
+- registrar no manifesto apenas extensões instaladas pelo projeto;
+- respeitar `-DryRun`.
+
 ## Resultado esperado atual
 
 Ao final do fluxo Windows, abrir o WezTerm no Windows deve levar diretamente ao Ubuntu/WSL usando zsh com Starship configurado, fonte Nerd Font e ferramentas modernas instaladas.

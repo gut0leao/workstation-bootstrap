@@ -17,6 +17,7 @@
 - Instalar apps Windows declarados em `packages/windows.json` com `DryRun` e idempotência.
 - Aplicar configuração versionada do WezTerm com backup e idempotência.
 - Instalar JetBrainsMono Nerd Font quando ausente.
+- Instalar extensões VS Code declaradas com `DryRun` e idempotência.
 
 ## Fase 3 — WSL e Ubuntu
 

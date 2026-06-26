@@ -140,6 +140,7 @@ function New-StateManifest {
       windowsApps      = @()
       wslDistributions = @()
       fonts            = @()
+      vscodeExtensions = @()
       configFiles      = @()
       backups          = @()
     }
@@ -355,6 +356,33 @@ function Add-ManagedFont {
   }
 
   $State.managed.fonts = @($existingFonts + $font)
+}
+
+function Add-ManagedVSCodeExtension {
+  param(
+    [Parameter(Mandatory)]$State,
+    [Parameter(Mandatory)][string]$ExtensionId
+  )
+
+  if (-not ($State.managed.PSObject.Properties.Name -contains 'vscodeExtensions')) {
+    $State.managed | Add-Member -MemberType NoteProperty -Name vscodeExtensions -Value @()
+  }
+
+  $existingExtensions = @($State.managed.vscodeExtensions)
+  $alreadyTracked = $existingExtensions | Where-Object { $_.id -eq $ExtensionId } | Select-Object -First 1
+
+  if ($alreadyTracked) {
+    $alreadyTracked.lastSeenAt = (Get-Date).ToUniversalTime().ToString('o')
+    return
+  }
+
+  $extension = [ordered]@{
+    id          = $ExtensionId
+    installedAt = (Get-Date).ToUniversalTime().ToString('o')
+    lastSeenAt  = (Get-Date).ToUniversalTime().ToString('o')
+  }
+
+  $State.managed.vscodeExtensions = @($existingExtensions + $extension)
 }
 
 function Get-BackupPath {
