@@ -36,6 +36,7 @@ No fluxo Windows 11 + WSL2 + Ubuntu, o projeto deve automatizar:
 13. Configuração do Starship.
 14. Instalação das ferramentas modernas de terminal.
 15. Exportação das configurações atuais.
+16. Reset controlado para retestes, com escopo explícito e confirmação para ações destrutivas.
 
 ## Objetivos funcionais futuros para Ubuntu host
 
@@ -94,6 +95,9 @@ Esses pacotes são usados hoje dentro do Ubuntu/WSL. A lista deve continuar vál
 -SkipWindowsApps
 -SkipUbuntuPackages
 -Export
+-Reset
+-ResetScope Config|UbuntuTools|WSLDistro|WindowsApps|All
+-ConfirmDestructive
 -Profile personal|corporate|minimal
 ```
 
@@ -106,6 +110,9 @@ TODO: `bootstrap.sh` deve aceitar equivalentes em Bash:
 --skip-host-apps
 --skip-ubuntu-packages
 --export
+--reset
+--reset-scope config|ubuntu-tools|host-apps|all
+--confirm-destructive
 --profile personal|corporate|minimal
 ```
 
@@ -117,6 +124,33 @@ TODO: `bootstrap.sh` deve aceitar equivalentes em Bash:
 - Implementar modo `DryRun`.
 - Tratar erros claramente.
 - Isolar ações específicas de cada host.
+- Reset nunca deve desinstalar tudo por padrão.
+- Ações destrutivas devem exigir escopo explícito e confirmação explícita.
+- O reset deve distinguir itens gerenciados pelo projeto de itens existentes na máquina antes do bootstrap.
+
+## Reset controlado
+
+O projeto deve suportar retestes sem exigir reinstalação manual da máquina inteira.
+
+Requisitos:
+
+1. `-Reset` ativa o modo de reset.
+2. `-ResetScope` define exatamente o que será resetado.
+3. `-DryRun` deve mostrar ações planejadas sem modificar a máquina.
+4. `-ConfirmDestructive` deve ser obrigatório para remover distro WSL, desinstalar aplicativos ou apagar configurações sem restauração.
+5. O resumo final deve listar ações executadas, ignoradas e pendentes.
+6. Quando possível, restaurar backups em vez de apagar arquivos.
+7. Pacotes e aplicativos não devem ser removidos se não houver evidência de que são gerenciados pelo projeto.
+
+Escopos iniciais no Windows:
+
+| Escopo | Intenção | Confirmação destrutiva |
+| --- | --- | --- |
+| `Config` | Restaurar/remover configs gerenciadas pelo projeto. | Depende da ação. |
+| `UbuntuTools` | Resetar ferramentas do Ubuntu gerenciado quando seguro. | Sim para remoções. |
+| `WSLDistro` | Remover distro WSL gerenciada para reteste limpo. | Sempre. |
+| `WindowsApps` | Desinstalar apps Windows gerenciados. | Sempre. |
+| `All` | Reset amplo dos escopos suportados. | Sempre. |
 
 ## Backups
 

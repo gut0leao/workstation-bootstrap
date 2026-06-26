@@ -30,6 +30,7 @@ O projeto deve permitir:
 - backup antes de sobrescrever configurações;
 - perfis de instalação;
 - exportação da configuração atual da workstation;
+- reset controlado para retestes;
 - inclusão e remoção simples de ferramentas;
 - separação clara entre responsabilidades do host e do ambiente Linux;
 - evolução futura para Ubuntu como host nativo.
@@ -112,6 +113,7 @@ Ambiente Linux gerenciado: Ubuntu
 - [`docs/requirements.md`](docs/requirements.md): requisitos funcionais e técnicos.
 - [`docs/architecture.md`](docs/architecture.md): arquitetura planejada.
 - [`docs/platforms.md`](docs/platforms.md): contrato de plataformas, escopo atual e TODOs para Ubuntu host.
+- [`docs/reset.md`](docs/reset.md): política de reset controlado para retestes.
 - [`docs/roadmap.md`](docs/roadmap.md): evolução futura.
 - [`docs/decisions.md`](docs/decisions.md): decisões arquiteturais.
 - [`docs/tools.md`](docs/tools.md): ferramentas previstas e dicas de uso.
@@ -132,6 +134,26 @@ A primeira versão funcional deve implementar apenas o fluxo Windows 11 + WSL2 +
 8. Configuração do WezTerm usando `default_prog` com `wsl.exe -d Ubuntu --cd ~`, além de menu/atalhos para PowerShell, CMD e Ubuntu.
 9. Execução do bootstrap Linux dentro do Ubuntu/WSL.
 10. Instalação/configuração de zsh, Starship e ferramentas de terminal.
+11. Reset controlado para retestar o ambiente sem desinstalar tudo por padrão.
+
+## Reset controlado
+
+O projeto não deve oferecer um comando que desinstala tudo implicitamente. Para retestar a criação do ambiente na mesma máquina, o caminho planejado é um modo de reset com escopo explícito:
+
+```powershell
+.\bootstrap.ps1 -Reset -ResetScope Config -DryRun
+.\bootstrap.ps1 -Reset -ResetScope WSLDistro -ConfirmDestructive
+```
+
+Escopos planejados:
+
+- `Config`: restaura ou remove configurações gerenciadas pelo projeto.
+- `UbuntuTools`: reseta ferramentas instaladas no ambiente Ubuntu gerenciado quando isso for seguro.
+- `WSLDistro`: remove uma distro WSL gerenciada pelo projeto, exigindo confirmação destrutiva.
+- `WindowsApps`: desinstala aplicativos Windows gerenciados pelo projeto, exigindo confirmação destrutiva.
+- `All`: executa reset amplo, sempre com confirmação destrutiva e resumo detalhado.
+
+Consulte [`docs/reset.md`](docs/reset.md).
 
 ## TODOs de plataforma
 

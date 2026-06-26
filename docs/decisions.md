@@ -59,3 +59,11 @@ Justificativa: transforma a configuração da workstation em fonte da verdade ve
 Decisão: nenhum arquivo de configuração existente deve ser sobrescrito sem backup com timestamp.
 
 Justificativa: segurança e reversibilidade.
+
+## 011 — Reset controlado em vez de desinstalar tudo
+
+Decisão: o projeto deve oferecer reset controlado por escopo para retestes, mas não deve ter um comando que desinstala tudo implicitamente.
+
+Justificativa: ferramentas como Git, VS Code, fontes, WSL, Ubuntu e configurações pessoais podem existir antes do bootstrap e podem ser usadas para outros trabalhos. Removê-las sem rastreio e confirmação explícita seria inseguro.
+
+O reset deve exigir escopo explícito, suportar `DryRun`, preferir restauração de backups e pedir confirmação para ações destrutivas como remover distro WSL ou desinstalar aplicativos do host.

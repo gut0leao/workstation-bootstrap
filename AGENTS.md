@@ -54,6 +54,7 @@ Antes de implementar código, leia:
 3. `docs/requirements.md`;
 4. `docs/architecture.md`;
 5. `docs/decisions.md`;
-6. `docs/platforms.md`.
+6. `docs/platforms.md`;
+7. `docs/reset.md`.
 
 Depois implemente incrementalmente, validando cada etapa.

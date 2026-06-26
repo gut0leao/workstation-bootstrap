@@ -15,10 +15,15 @@ param(
   [switch]$SkipWindowsApps,
   [switch]$SkipUbuntuPackages,
   [switch]$Export,
+  [switch]$Reset,
+  [ValidateSet('Config', 'UbuntuTools', 'WSLDistro', 'WindowsApps', 'All')]
+  [string]$ResetScope = 'Config',
+  [switch]$ConfirmDestructive,
   [ValidateSet('personal', 'corporate', 'minimal')]
   [string]$Profile = 'personal'
 )
 
 Write-Host "workstation-bootstrap install.ps1 placeholder"
 Write-Host "Host scope: Windows 11 -> WSL2 -> Ubuntu."
+Write-Host "Reset scope: controlled reset only; no implicit uninstall-all behavior."
 Write-Host "Implement according to docs/requirements.md, docs/architecture.md, and docs/platforms.md."

@@ -27,6 +27,7 @@ install.ps1 remoto
 bootstrap.ps1
 |
 |-- verifica pré-requisitos Windows
+|-- se -Reset, executa fluxo de reset controlado
 |-- instala/configura WSL2
 |-- instala/configura Ubuntu no WSL
 |-- gera .wslconfig
@@ -67,6 +68,23 @@ bootstrap.sh
 `-- exibe validações
 ```
 
+## Fluxo de reset controlado
+
+O reset é um modo operacional separado do bootstrap normal.
+
+```text
+bootstrap.ps1 -Reset
+|
+|-- valida ResetScope
+|-- calcula ações aplicáveis ao host atual
+|-- exige ConfirmDestructive para ações destrutivas
+|-- executa DryRun ou aplica mudanças
+|-- restaura backups quando possível
+`-- exibe resumo de executado, ignorado e pendente
+```
+
+O reset não deve pressupor que tudo instalado na máquina pertence ao projeto. Sempre que possível, deve usar marcadores, backups ou estado exportado para identificar o que é gerenciado.
+
 ## Estrutura
 
 ```text
@@ -93,6 +111,8 @@ Instalador remoto para Windows. Não depende de clone prévio.
 ### `bootstrap.ps1`
 
 Orquestrador principal do host Windows.
+
+Também deve expor o modo `-Reset` para retestes controlados no host Windows.
 
 ### `scripts/windows/`
 
@@ -121,6 +141,17 @@ Exemplos:
 - Se `.zshrc` já existir, criar backup antes de substituir.
 - Se pacote apt já estiver instalado, ignorar.
 - Se uma etapa não se aplica ao host atual, registrar como ignorada.
+
+## Reset
+
+Reset não é o inverso cego do bootstrap. Ele é uma operação controlada para reteste e deve:
+
+- exigir escopo explícito;
+- respeitar `DryRun`;
+- preservar backups;
+- preferir restaurar ao apagar;
+- exigir confirmação para remoções destrutivas;
+- registrar itens ignorados por não serem comprovadamente gerenciados pelo projeto.
 
 ## Perfis
 

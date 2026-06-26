@@ -69,6 +69,24 @@ Verificar:
 starship --version
 ```
 
+## Quero retestar o bootstrap do zero
+
+Não desinstale tudo manualmente como primeira opção.
+
+Fluxo recomendado:
+
+```powershell
+.\bootstrap.ps1 -Reset -ResetScope Config -DryRun
+```
+
+Para testes destrutivos, usar uma distro WSL dedicada ao projeto e exigir confirmação explícita:
+
+```powershell
+.\bootstrap.ps1 -Reset -ResetScope WSLDistro -ConfirmDestructive
+```
+
+TODO: implementar o fluxo acima.
+
 ## Ubuntu host nativo
 
 TODO: adicionar problemas comuns quando o fluxo Ubuntu host for implementado.

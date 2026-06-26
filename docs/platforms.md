@@ -49,6 +49,7 @@ TODO:
 - definir terminal padrão ou suportado;
 - definir instalação de fontes;
 - criar export de configurações Linux;
+- criar reset Linux seguro por escopo;
 - criar testes manuais de validação.
 
 ## Regras de desenho
@@ -60,3 +61,4 @@ TODO:
 - Scripts não devem inferir que todo Ubuntu é WSL.
 - Scripts não devem inferir que todo host tem `winget`.
 - Toda etapa deve poder ser habilitada, ignorada ou marcada como não aplicável.
+- Reset deve ser implementado por host e nunca deve remover itens sem escopo explícito.

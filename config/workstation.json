@@ -15,6 +15,20 @@
   "installUbuntuPackages": true,
   "installFonts": true,
   "configureVSCode": true,
+  "reset": {
+    "enabled": true,
+    "defaultScope": "Config",
+    "requireExplicitScope": true,
+    "requireConfirmationForDestructiveActions": true,
+    "recommendedTestDistribution": "Ubuntu-WorkstationTest",
+    "scopes": [
+      "Config",
+      "UbuntuTools",
+      "WSLDistro",
+      "WindowsApps",
+      "All"
+    ]
+  },
   "todos": {
     "ubuntuHost": [
       "Criar install.sh para instalação remota em Ubuntu host.",
