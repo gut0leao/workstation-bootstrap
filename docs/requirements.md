@@ -38,6 +38,8 @@ No fluxo Windows 11 + WSL2 + Ubuntu, o projeto deve automatizar:
 15. Exportação das configurações atuais.
 16. Reset controlado para retestes, com escopo explícito e confirmação para ações destrutivas.
 
+Estado atual: esses objetivos estão implementados para Windows 11 + WSL2 + Ubuntu, com exceção do reset `UbuntuTools`, que permanece conservador e não remove pacotes `apt` por falta de rastreio confiável de ownership por pacote.
+
 ## Objetivos funcionais futuros para Ubuntu host
 
 TODO:
@@ -70,6 +72,8 @@ Regras:
 - registrar no manifesto apenas apps instalados pelo projeto;
 - respeitar `-DryRun` e `-SkipWindowsApps`.
 
+Limitação atual: `config/workstation.json` declara `installWindowsApps`, mas o fluxo Windows usa `packages/windows.json` e o parâmetro `-SkipWindowsApps` como controles efetivos.
+
 ## Pacotes Ubuntu
 
 Lista inicial em `packages/ubuntu.txt`.
@@ -93,9 +97,11 @@ Esses pacotes são usados hoje dentro do Ubuntu/WSL. A lista deve continuar vál
 - btop;
 - direnv.
 
+Limitação atual: `config/workstation.json` declara `installUbuntuPackages`, mas o controle efetivo é `-SkipUbuntuPackages`, repassado ao bootstrap Ubuntu.
+
 ## Parâmetros esperados no Windows
 
-`bootstrap.ps1` deve aceitar:
+`bootstrap.ps1` aceita:
 
 ```powershell
 -DryRun
@@ -109,7 +115,13 @@ Esses pacotes são usados hoje dentro do Ubuntu/WSL. A lista deve continuar vál
 -Profile personal|corporate|minimal
 ```
 
-`install.ps1` deve aceitar os mesmos parâmetros principais, baixar o ZIP do repositório quando não houver clone local e repassar a execução para `bootstrap.ps1`.
+`install.ps1` aceita os mesmos parâmetros principais, baixa o ZIP do repositório quando não há clone local e repassa a execução para `bootstrap.ps1`. Quando executado dentro de um clone, detecta o `bootstrap.ps1` local. Quando executado via `irm ... | iex`, não depende de `$PSScriptRoot`.
+
+## Perfis Windows
+
+`-Profile personal|corporate|minimal` é aceito, validado contra `config/workstation.json` e registrado no manifesto local.
+
+Limitação atual: os perfis ainda não alteram capacidades, pacotes, aplicativos ou configurações aplicadas. Essa diferenciação permanece pendente.
 
 ## Parâmetros futuros no Ubuntu host
 
@@ -158,7 +170,7 @@ Escopos iniciais no Windows:
 | Escopo | Intenção | Confirmação destrutiva |
 | --- | --- | --- |
 | `Config` | Restaurar/remover configs gerenciadas pelo projeto. | Depende da ação. |
-| `UbuntuTools` | Resetar ferramentas do Ubuntu gerenciado quando seguro. | Sim para remoções. |
+| `UbuntuTools` | Registrar pendência conservadora para ferramentas Ubuntu. | Sem remoções automáticas no estado atual. |
 | `WSLDistro` | Remover distro WSL gerenciada para reteste limpo. | Sempre. |
 | `WindowsApps` | Desinstalar apps Windows gerenciados. | Sempre. |
 | `All` | Reset amplo dos escopos suportados. | Sempre. |
@@ -221,6 +233,8 @@ Regras:
 - não registrar fonte pré-existente como gerenciada pelo projeto;
 - registrar no manifesto apenas fontes instaladas pelo projeto;
 - respeitar `-DryRun`.
+
+Limitação atual: `config/workstation.json` declara `installFonts`, mas o fluxo Windows ainda não usa essa flag para desabilitar a etapa; use `-DryRun` para validar e ajuste o código antes de tratar esse campo como contrato operacional.
 
 ## VS Code
 

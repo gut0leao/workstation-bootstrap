@@ -1,68 +1,73 @@
 # Roadmap
 
+## Estado atual
+
+As fases 1 a 6 estão implementadas para o escopo Windows 11 + WSL2 + Ubuntu. A fase 7 está parcial: os perfis `personal`, `corporate` e `minimal` são aceitos, validados e registrados no manifesto, mas ainda não alteram listas de ferramentas ou capacidades. As fases 8 a 10 continuam planejadas.
+
 ## Fase 1 — Estrutura e documentação
 
-- Criar estrutura inicial do projeto.
-- Criar README.
-- Criar AGENTS.md.
-- Criar documentos de visão, requisitos, arquitetura e decisões.
-- Definir contrato de plataformas em `docs/platforms.md`.
+- Implementado: criar estrutura inicial do projeto.
+- Implementado: criar README.
+- Implementado: criar AGENTS.md.
+- Implementado: criar documentos de visão, requisitos, arquitetura e decisões.
+- Implementado: definir contrato de plataformas em `docs/platforms.md`.
 
 ## Fase 2 — Bootstrap Windows mínimo
 
-- Implementar `install.ps1` remoto.
-- Implementar `bootstrap.ps1`.
-- Verificar Windows 11, PowerShell, admin e winget.
-- Instalar WezTerm e VS Code.
-- Instalar apps Windows declarados em `packages/windows.json` com `DryRun` e idempotência.
-- Aplicar configuração versionada do WezTerm com backup e idempotência.
-- Instalar JetBrainsMono Nerd Font quando ausente.
-- Instalar extensões VS Code declaradas com `DryRun` e idempotência.
+- Implementado: `install.ps1` remoto, incluindo execução via `irm ... | iex`.
+- Implementado: `bootstrap.ps1`.
+- Implementado: verificar Windows 11, PowerShell, admin e winget.
+- Implementado: instalar WezTerm e VS Code.
+- Implementado: instalar apps Windows declarados em `packages/windows.json` com `DryRun` e idempotência.
+- Implementado: aplicar configuração versionada do WezTerm com backup e idempotência.
+- Implementado: instalar JetBrainsMono Nerd Font quando ausente.
+- Implementado: instalar extensões VS Code declaradas com `DryRun` e idempotência.
 
 ## Fase 3 — WSL e Ubuntu
 
-- Instalar/ativar WSL2.
-- Instalar Ubuntu.
-- Validar `wsl --status` e `wsl -l -v`.
-- Gerar `.wslconfig`.
-- Criar backup antes de substituir `.wslconfig`.
-- Não recriar nem assumir ownership de distros WSL pré-existentes.
+- Implementado: instalar/ativar WSL2 por meio de `wsl --install -d <distro>` quando a distro alvo não existe.
+- Implementado: instalar Ubuntu no WSL quando ausente.
+- Implementado: validar disponibilidade de `wsl`.
+- Implementado: gerar `.wslconfig`.
+- Implementado: criar backup antes de substituir `.wslconfig`.
+- Implementado: não recriar nem assumir ownership de distros WSL pré-existentes.
 
 ## Fase 4 — Bootstrap Ubuntu no WSL
 
-- Instalar pacotes Ubuntu.
-- Configurar zsh.
-- Instalar/configurar Starship.
-- Instalar/configurar ferramentas modernas.
-- Chamar bootstrap Ubuntu a partir do PowerShell no host Windows.
-- Evitar prompts interativos de `sudo` em automação.
+- Implementado: instalar pacotes Ubuntu quando `sudo` não interativo está disponível.
+- Implementado: configurar zsh.
+- Implementado: instalar/configurar Starship.
+- Implementado: validar ferramentas modernas.
+- Implementado: chamar bootstrap Ubuntu a partir do PowerShell no host Windows.
+- Implementado: evitar prompts interativos de `sudo` em automação.
 
 ## Fase 5 — Export
 
-- Implementar `-Export`.
-- Exportar configurações atuais.
-- Exportar lista de extensões VS Code.
-- Exportar versões instaladas.
-- Registrar host e ambiente Linux na exportação.
-- Registrar artefatos gerenciados pelo projeto para uso futuro pelo reset.
-- Exportar estado e configurações para `exports/<timestamp>/`.
+- Implementado: `-Export`.
+- Implementado: exportar configurações atuais.
+- Implementado: exportar lista de extensões VS Code.
+- Implementado: exportar snapshot do host, lista `winget`, status/lista WSL e configurações conhecidas.
+- Implementado: registrar artefatos gerenciados pelo projeto para uso pelo reset.
+- Implementado: exportar estado e configurações para `exports/<timestamp>/`.
 
 ## Fase 6 — Reset controlado para retestes
 
-- Implementar `-Reset`.
-- Implementar `-ResetScope`.
-- Implementar `-ConfirmDestructive`.
-- Implementar `DryRun` para reset.
-- Restaurar backups quando possível.
-- Suportar reset de configurações.
-- Suportar reset de distro WSL gerenciada para testes.
-- Exibir resumo de ações executadas, ignoradas e pendentes.
+- Implementado: `-Reset`.
+- Implementado: `-ResetScope`.
+- Implementado: `-ConfirmDestructive`.
+- Implementado: `DryRun` para reset.
+- Implementado: restaurar backups quando possível.
+- Implementado: reset de configurações.
+- Implementado: reset de distro WSL gerenciada para testes.
+- Implementado: reset de apps Windows gerenciados.
+- Implementado: resumo de ações executadas, ignoradas e pendentes.
+- Parcial: `UbuntuTools` apenas registra pendência conservadora; pacotes `apt` ainda não são removidos.
 
 ## Fase 7 — Perfis
 
-- Implementar perfis `personal`, `corporate` e `minimal`.
-- Permitir habilitar/desabilitar ferramentas por perfil.
-- Permitir distinguir recursos por host suportado.
+- Parcial: aceitar e validar perfis `personal`, `corporate` e `minimal`.
+- Pendente: permitir habilitar/desabilitar ferramentas por perfil.
+- Pendente: permitir distinguir recursos por host suportado.
 
 ## Fase 8 — Preparação para Ubuntu host
 

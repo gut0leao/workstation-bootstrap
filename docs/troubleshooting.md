@@ -1,5 +1,23 @@
 # Troubleshooting
 
+## Instalação remota não inicia
+
+Comando esperado no Windows:
+
+```powershell
+irm https://raw.githubusercontent.com/gut0leao/workstation-bootstrap/main/install.ps1 | iex
+```
+
+Se o erro mencionar `Path` vazio no `Invoke-Expression`, verifique se o `main` remoto já contém a versão atual de `install.ps1`. O instalador atual não depende de `$PSScriptRoot` quando executado via `irm ... | iex`.
+
+Para evitar cache temporário do branch `main`, baixe o arquivo antes de executar:
+
+```powershell
+iwr https://raw.githubusercontent.com/gut0leao/workstation-bootstrap/main/install.ps1 -OutFile install.ps1
+notepad install.ps1
+.\install.ps1
+```
+
 ## WSL não instala
 
 Aplica-se apenas ao host Windows.

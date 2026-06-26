@@ -15,12 +15,13 @@ O Ubuntu/WSL é o ambiente Linux gerenciado e é configurado por scripts Bash ch
 
 No escopo futuro, Ubuntu nativo poderá ser um host suportado. Nesse caso, Bash será o orquestrador do host, e as configurações Linux serão aplicadas localmente, sem WSL.
 
-## Fluxo planejado atual: Windows 11 host
+## Fluxo implementado atual: Windows 11 host
 
 ```text
 install.ps1 remoto
 |
-|-- baixa ZIP do repositório público
+|-- quando executado via irm ... | iex, baixa ZIP do repositório público
+|-- quando executado dentro de clone, usa bootstrap.ps1 local
 |-- extrai em pasta temporária
 `-- executa bootstrap.ps1
 
@@ -185,3 +186,5 @@ Perfis iniciais:
 - `minimal`.
 
 Perfis devem controlar ferramentas por capacidade e por plataforma, não por suposições implícitas sobre Windows.
+
+Estado atual: `bootstrap.ps1` e `install.ps1` aceitam `-Profile personal|corporate|minimal`, validam a existência do perfil e registram o valor no manifesto. A diferenciação real de ferramentas e capacidades por perfil ainda está pendente.

@@ -1,4 +1,10 @@
 function Get-WezTermConfigTargetPath {
+  $legacyConfigPath = Join-Path $env:USERPROFILE '.wezterm.lua'
+
+  if (Test-Path -LiteralPath $legacyConfigPath) {
+    return $legacyConfigPath
+  }
+
   $configRoot = Join-Path $env:USERPROFILE '.config'
   $weztermRoot = Join-Path $configRoot 'wezterm'
   return Join-Path $weztermRoot 'wezterm.lua'

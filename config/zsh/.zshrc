@@ -56,6 +56,16 @@ alias ...='cd ../..'
 # Editor padrão
 export EDITOR=nano
 
+# Informa o diretório atual ao terminal para que novas abas possam herdar o cwd.
+_wezterm_osc7() {
+  [[ "${TERM_PROGRAM:-}" == "WezTerm" ]] || return 0
+
+  printf '\e]7;file://%s%s\e\\' "$(hostname)" "${PWD}"
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _wezterm_osc7
+
 # zoxide
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh)"

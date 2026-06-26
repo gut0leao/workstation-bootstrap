@@ -24,6 +24,7 @@ O projeto deve ser desenhado para múltiplos hosts, mas a implementação inicia
 
 Responsabilidades atuais:
 
+- executar instalação remota via `install.ps1` sem clone prévio;
 - verificar Windows 11, PowerShell, privilégios e winget;
 - instalar/configurar WSL2;
 - instalar/configurar Ubuntu no WSL;
@@ -32,6 +33,12 @@ Responsabilidades atuais:
 - instalar fontes;
 - configurar WezTerm e VS Code;
 - chamar o bootstrap Ubuntu dentro do WSL.
+
+Limitações atuais:
+
+- perfis são aceitos e registrados, mas ainda não alteram comportamento;
+- reset de `UbuntuTools` não remove pacotes `apt`;
+- Ubuntu nativo como host permanece planejado.
 
 ## Ubuntu host
 

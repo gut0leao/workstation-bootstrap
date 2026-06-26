@@ -39,24 +39,22 @@ O projeto deve permitir:
 
 | Host | Estado | Orquestrador | Ambiente Linux alvo |
 | --- | --- | --- | --- |
-| Windows 11 | Implementação inicial | PowerShell | Ubuntu via WSL2 |
+| Windows 11 | Implementado | PowerShell | Ubuntu via WSL2 |
 | Ubuntu nativo | Futuro/TODO | Bash | Ubuntu local |
 | macOS | Fora do escopo atual | A definir | A definir |
 
 Consulte [`docs/platforms.md`](docs/platforms.md) para o contrato de plataformas e os TODOs de expansão.
 
-## Uso rápido futuro
-
-Quando o projeto estiver implementado para Windows 11:
+## Uso rápido
 
 ```powershell
 irm https://raw.githubusercontent.com/gut0leao/workstation-bootstrap/main/install.ps1 | iex
 ```
 
-## Uso recomendado futuro
+## Uso recomendado
 
 ```powershell
-irm https://raw.githubusercontent.com/gut0leao/workstation-bootstrap/main/install.ps1 -OutFile install.ps1
+iwr https://raw.githubusercontent.com/gut0leao/workstation-bootstrap/main/install.ps1 -OutFile install.ps1
 notepad install.ps1
 .\install.ps1
 ```
@@ -75,6 +73,7 @@ cd workstation-bootstrap
 
 O bootstrap Windows já executa uma base funcional:
 
+- executa remotamente via `irm ... | iex` sem clone prévio;
 - carrega `config/workstation.json`;
 - mantém manifesto local em `%LOCALAPPDATA%\workstation-bootstrap\state.json`;
 - verifica pré-requisitos do host Windows;
@@ -89,7 +88,14 @@ O bootstrap Windows já executa uma base funcional:
 - respeita `-DryRun`;
 - respeita `-SkipWindowsApps`;
 - respeita `-SkipWSL`;
+- respeita `-SkipUbuntuPackages` ao chamar o bootstrap Ubuntu;
 - não marca aplicativos já existentes como gerenciados pelo projeto.
+
+Limitações atuais:
+
+- `-Profile personal|corporate|minimal` é aceito e registrado, mas os perfis ainda não alteram capacidades ou listas de ferramentas.
+- `UbuntuTools` no reset é conservador e não remove pacotes `apt`, pois ainda não há rastreio confiável de ownership por pacote.
+- Ubuntu nativo como host continua planejado, não implementado.
 
 Exportação:
 
@@ -154,9 +160,9 @@ Ambiente Linux gerenciado: Ubuntu
 - [`docs/troubleshooting.md`](docs/troubleshooting.md): problemas comuns.
 - [`docs/profiles.md`](docs/profiles.md): perfis de instalação.
 
-## Primeira implementação esperada
+## Primeira implementação atual
 
-A primeira versão funcional deve implementar apenas o fluxo Windows 11 + WSL2 + Ubuntu:
+A primeira versão funcional implementa apenas o fluxo Windows 11 + WSL2 + Ubuntu:
 
 1. `install.ps1` para instalação remota no Windows.
 2. `bootstrap.ps1` como orquestrador principal do host Windows.
@@ -173,17 +179,17 @@ A primeira versão funcional deve implementar apenas o fluxo Windows 11 + WSL2 +
 
 ## Reset controlado
 
-O projeto não deve oferecer um comando que desinstala tudo implicitamente. Para retestar a criação do ambiente na mesma máquina, o caminho planejado é um modo de reset com escopo explícito:
+O projeto não oferece um comando que desinstala tudo implicitamente. Para retestar a criação do ambiente na mesma máquina, existe um modo de reset com escopo explícito:
 
 ```powershell
 .\bootstrap.ps1 -Reset -ResetScope Config -DryRun
 .\bootstrap.ps1 -Reset -ResetScope WSLDistro -ConfirmDestructive
 ```
 
-Escopos planejados:
+Escopos atuais:
 
 - `Config`: restaura ou remove configurações gerenciadas pelo projeto.
-- `UbuntuTools`: reseta ferramentas instaladas no ambiente Ubuntu gerenciado quando isso for seguro.
+- `UbuntuTools`: registra pendência conservadora; pacotes `apt` não são removidos automaticamente.
 - `WSLDistro`: remove uma distro WSL gerenciada pelo projeto, exigindo confirmação destrutiva.
 - `WindowsApps`: desinstala aplicativos Windows gerenciados pelo projeto, exigindo confirmação destrutiva.
 - `All`: executa reset amplo, sempre com confirmação destrutiva e resumo detalhado.
@@ -239,7 +245,7 @@ direnv --version
 
 Este pacote inicial já inclui os arquivos de configuração que foram validados manualmente:
 
-- `config/wezterm/wezterm.lua`: configuração do WezTerm para o escopo Windows usando `default_prog` com `wsl.exe`, tema Tokyo Night, Acrylic, JetBrainsMono Nerd Font, launch menu e atalhos para PowerShell, CMD e Ubuntu.
+- `config/wezterm/wezterm.lua`: configuração do WezTerm para o escopo Windows usando `default_prog` com `wsl.exe`, tema Tokyo Night, Acrylic, JetBrainsMono Nerd Font, launch menu e atalhos para copiar (`Ctrl+Shift+C`), PowerShell (`Ctrl+Shift+P`), CMD (`Ctrl+Shift+D`) e Ubuntu no diretório atual (`Ctrl+Shift+U`).
 - `config/zsh/.zshrc`: zsh limpo, sem Oh My Zsh, com histórico, autocomplete, aliases e integração condicional com zoxide, direnv e Starship.
 - `config/starship/starship.toml`: prompt minimalista e contextual para Git, Python, Node, PHP, Ruby, Docker e duração de comandos.
 

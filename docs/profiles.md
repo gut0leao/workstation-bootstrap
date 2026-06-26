@@ -4,6 +4,12 @@ O projeto deve suportar perfis para diferentes contextos de uso.
 
 Perfis não devem assumir que o host é sempre Windows. Cada perfil deve declarar intenções e capacidades; o orquestrador de cada host decide quais ações são aplicáveis.
 
+## Estado atual
+
+O fluxo Windows aceita `-Profile personal|corporate|minimal`, valida se o perfil existe em `config/workstation.json` e registra o perfil usado no manifesto local.
+
+No estado atual, os perfis ainda não alteram listas de pacotes, aplicativos, fontes, extensões ou etapas executadas. A diferenciação por perfil permanece pendente.
+
 ## personal
 
 Perfil padrão para máquina pessoal.
