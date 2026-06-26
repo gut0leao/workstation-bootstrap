@@ -61,6 +61,8 @@ notepad install.ps1
 .\install.ps1
 ```
 
+`install.ps1` também pode ser executado dentro de um clone; nesse caso ele detecta o `bootstrap.ps1` local e repassa os parâmetros.
+
 ## Uso após clone
 
 ```powershell

@@ -109,6 +109,8 @@ Esses pacotes são usados hoje dentro do Ubuntu/WSL. A lista deve continuar vál
 -Profile personal|corporate|minimal
 ```
 
+`install.ps1` deve aceitar os mesmos parâmetros principais, baixar o ZIP do repositório quando não houver clone local e repassar a execução para `bootstrap.ps1`.
+
 ## Parâmetros futuros no Ubuntu host
 
 TODO: `bootstrap.sh` deve aceitar equivalentes em Bash:

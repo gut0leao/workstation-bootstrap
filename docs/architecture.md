@@ -107,7 +107,7 @@ workstation-bootstrap/
 
 ### `install.ps1`
 
-Instalador remoto para Windows. Não depende de clone prévio.
+Instalador remoto para Windows. Não depende de clone prévio. Quando executado dentro de um clone, usa o `bootstrap.ps1` local.
 
 ### `bootstrap.ps1`
 
