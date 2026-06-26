@@ -1,12 +1,29 @@
 {
   "profile": "personal",
+  "supportedHost": "windows",
+  "implementedHosts": [
+    "windows"
+  ],
+  "plannedHosts": [
+    "ubuntu"
+  ],
   "wslDistribution": "Ubuntu",
+  "linuxEnvironment": "wsl",
   "weztermTheme": "Tokyo Night",
   "fontName": "JetBrainsMono Nerd Font",
   "installWindowsApps": true,
   "installUbuntuPackages": true,
   "installFonts": true,
   "configureVSCode": true,
+  "todos": {
+    "ubuntuHost": [
+      "Criar install.sh para instalação remota em Ubuntu host.",
+      "Criar bootstrap.sh para orquestração em Ubuntu host.",
+      "Separar pacotes Ubuntu comuns dos pacotes específicos de WSL.",
+      "Definir estratégia de terminal, editor e fontes no Ubuntu host.",
+      "Reutilizar config/zsh/.zshrc e config/starship/starship.toml fora do WSL."
+    ]
+  },
   "profiles": {
     "personal": {
       "description": "Perfil padrão para máquina pessoal com privilégios administrativos."

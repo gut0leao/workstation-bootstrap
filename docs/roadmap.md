@@ -6,6 +6,7 @@
 - Criar README.
 - Criar AGENTS.md.
 - Criar documentos de visão, requisitos, arquitetura e decisões.
+- Definir contrato de plataformas em `docs/platforms.md`.
 
 ## Fase 2 — Bootstrap Windows mínimo
 
@@ -21,7 +22,7 @@
 - Validar `wsl --status` e `wsl -l -v`.
 - Gerar `.wslconfig`.
 
-## Fase 4 — Bootstrap Ubuntu
+## Fase 4 — Bootstrap Ubuntu no WSL
 
 - Instalar pacotes Ubuntu.
 - Configurar zsh.
@@ -34,13 +35,31 @@
 - Exportar configurações atuais.
 - Exportar lista de extensões VS Code.
 - Exportar versões instaladas.
+- Registrar host e ambiente Linux na exportação.
 
 ## Fase 6 — Perfis
 
 - Implementar perfis `personal`, `corporate` e `minimal`.
 - Permitir habilitar/desabilitar ferramentas por perfil.
+- Permitir distinguir recursos por host suportado.
 
-## Fase 7 — Expansões futuras
+## Fase 7 — Preparação para Ubuntu host
+
+- Criar TODOs executáveis para `install.sh` e `bootstrap.sh`.
+- Separar pacotes comuns Ubuntu dos pacotes específicos de WSL.
+- Documentar diferenças entre Ubuntu/WSL e Ubuntu host.
+- Definir validações manuais para Ubuntu host.
+
+## Fase 8 — Ubuntu host nativo
+
+- Implementar `install.sh`.
+- Implementar `bootstrap.sh`.
+- Instalar pacotes Ubuntu via `apt`.
+- Aplicar zsh e Starship localmente.
+- Instalar/configurar editor, terminal e fontes definidos para Linux.
+- Implementar export Linux.
+
+## Fase 9 — Expansões futuras
 
 - Docker Desktop ou Podman.
 - GitHub CLI.
@@ -49,5 +68,4 @@
 - DDEV.
 - Node, PHP, Ruby, Python, Java.
 - Terraform, kubectl, Helm.
-- Suporte parcial a Linux nativo.
-- Suporte parcial a macOS.
+- macOS.

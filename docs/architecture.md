@@ -2,84 +2,113 @@
 
 ## Visão geral
 
-O projeto é dividido em duas camadas:
+O projeto é dividido em camadas de responsabilidade, não em um único fluxo preso ao Windows:
 
-1. Host Windows.
-2. Ubuntu dentro do WSL.
+1. Host suportado.
+2. Orquestrador do host.
+3. Ambiente Linux gerenciado.
+4. Configurações compartilhadas.
 
-O Windows é o orquestrador principal porque instala e configura componentes que existem fora do WSL, como WezTerm, VS Code, WSL e `.wslconfig`.
+No escopo atual, o host suportado é Windows 11. O PowerShell é o orquestrador porque instala e configura componentes que existem fora do WSL, como WezTerm, VS Code, WSL e `.wslconfig`.
 
-O Ubuntu/WSL é configurado por scripts Bash chamados a partir do PowerShell.
+O Ubuntu/WSL é o ambiente Linux gerenciado e é configurado por scripts Bash chamados a partir do PowerShell.
 
-## Fluxo planejado
+No escopo futuro, Ubuntu nativo poderá ser um host suportado. Nesse caso, Bash será o orquestrador do host, e as configurações Linux serão aplicadas localmente, sem WSL.
+
+## Fluxo planejado atual: Windows 11 host
 
 ```text
 install.ps1 remoto
-│
-├── baixa ZIP do repositório público
-├── extrai em pasta temporária
-└── executa bootstrap.ps1
+|
+|-- baixa ZIP do repositório público
+|-- extrai em pasta temporária
+`-- executa bootstrap.ps1
 
 bootstrap.ps1
-│
-├── verifica pré-requisitos Windows
-├── instala/configura WSL2
-├── instala/configura Ubuntu
-├── gera .wslconfig
-├── instala apps Windows via winget
-├── instala fontes
-├── configura WezTerm
-├── configura VS Code
-└── chama scripts/ubuntu/bootstrap.sh dentro do WSL
+|
+|-- verifica pré-requisitos Windows
+|-- instala/configura WSL2
+|-- instala/configura Ubuntu no WSL
+|-- gera .wslconfig
+|-- instala apps Windows via winget
+|-- instala fontes
+|-- configura WezTerm
+|-- configura VS Code
+`-- chama scripts/ubuntu/bootstrap.sh dentro do WSL
 
 scripts/ubuntu/bootstrap.sh
-│
-├── instala pacotes apt
-├── configura zsh
-├── configura Starship
-├── configura aliases e ferramentas
-└── exibe validações
+|
+|-- instala pacotes apt
+|-- configura zsh
+|-- configura Starship
+|-- configura aliases e ferramentas
+`-- exibe validações
+```
+
+## Fluxo futuro: Ubuntu host
+
+TODO:
+
+```text
+install.sh remoto
+|
+|-- baixa arquivo ou ZIP do repositório público
+|-- extrai em diretório temporário
+`-- executa bootstrap.sh
+
+bootstrap.sh
+|
+|-- verifica pré-requisitos Ubuntu host
+|-- detecta apt e versão da distribuição
+|-- instala pacotes host
+|-- instala/configura terminal/editor/fontes quando aplicável
+|-- aplica config/zsh/.zshrc
+|-- aplica config/starship/starship.toml
+`-- exibe validações
 ```
 
 ## Estrutura
 
 ```text
 workstation-bootstrap/
-├── README.md
-├── AGENTS.md
-├── install.ps1
-├── bootstrap.ps1
-├── config/
-├── packages/
-├── scripts/
-└── docs/
+|-- README.md
+|-- AGENTS.md
+|-- install.ps1
+|-- bootstrap.ps1
+|-- config/
+|-- packages/
+|-- scripts/
+|   |-- windows/
+|   `-- ubuntu/
+|-- docs/
+`-- TODO: install.sh / bootstrap.sh para Ubuntu host
 ```
 
 ## Responsabilidades
 
 ### `install.ps1`
 
-Instalador remoto. Não depende de clone prévio.
+Instalador remoto para Windows. Não depende de clone prévio.
 
 ### `bootstrap.ps1`
 
-Orquestrador principal.
+Orquestrador principal do host Windows.
 
 ### `scripts/windows/`
 
-Scripts especializados para tarefas Windows.
+Scripts especializados para tarefas do host Windows.
 
 ### `scripts/ubuntu/`
 
-Scripts especializados para tarefas Ubuntu/WSL.
+Scripts especializados para tarefas Ubuntu. Hoje eles rodam dentro do WSL. No futuro, devem ser reutilizáveis pelo fluxo Ubuntu host quando não dependerem de WSL.
 
 ### `config/`
 
-Arquivos de configuração versionados.
+Arquivos de configuração versionados. Deve conter configurações compartilhadas e configurações específicas de host com nomes claros.
 
 ### `packages/`
 
-Listas declarativas de programas e pacotes.
+Listas declarativas de programas e pacotes. Pacotes específicos de host devem ficar em arquivos separados.
 
 ## Idempotência
 
@@ -88,9 +117,10 @@ Cada script deve verificar estado atual antes de agir.
 Exemplos:
 
 - Se WezTerm já estiver instalado, não reinstalar sem necessidade.
-- Se Ubuntu já existir, não recriar distribuição.
+- Se Ubuntu no WSL já existir, não recriar distribuição.
 - Se `.zshrc` já existir, criar backup antes de substituir.
 - Se pacote apt já estiver instalado, ignorar.
+- Se uma etapa não se aplica ao host atual, registrar como ignorada.
 
 ## Perfis
 
@@ -101,3 +131,5 @@ Perfis iniciais:
 - `personal`;
 - `corporate`;
 - `minimal`.
+
+Perfis devem controlar ferramentas por capacidade e por plataforma, não por suposições implícitas sobre Windows.

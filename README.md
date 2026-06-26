@@ -4,11 +4,12 @@
 
 O objetivo é permitir que uma máquina nova seja provisionada de forma reproduzível, segura e modular, transformando a configuração da workstation em código versionado.
 
-A primeira plataforma alvo é:
+O projeto deve ser desenhado para suportar mais de uma plataforma host ao longo do tempo. O escopo implementado agora é:
 
-- Windows 11;
+- host Windows 11;
+- PowerShell como orquestrador no Windows;
 - WSL2;
-- Ubuntu;
+- Ubuntu dentro do WSL como ambiente Linux gerenciado;
 - WezTerm;
 - VS Code;
 - zsh;
@@ -17,7 +18,9 @@ A primeira plataforma alvo é:
 
 ## Objetivo
 
-Configurar uma workstation de desenvolvimento com o menor número possível de comandos, instalando e configurando componentes no host Windows e no Ubuntu/WSL.
+Configurar uma workstation de desenvolvimento com o menor número possível de comandos, instalando e configurando componentes do host suportado e do ambiente Linux gerenciado.
+
+No escopo atual, isso significa configurar o host Windows 11 e o Ubuntu/WSL. A arquitetura e a documentação devem manter espaço explícito para que, no futuro, o mesmo projeto possa ser executado a partir de um Ubuntu nativo como host.
 
 O projeto deve permitir:
 
@@ -27,20 +30,32 @@ O projeto deve permitir:
 - backup antes de sobrescrever configurações;
 - perfis de instalação;
 - exportação da configuração atual da workstation;
-- inclusão e remoção simples de ferramentas.
+- inclusão e remoção simples de ferramentas;
+- separação clara entre responsabilidades do host e do ambiente Linux;
+- evolução futura para Ubuntu como host nativo.
+
+## Plataformas
+
+| Host | Estado | Orquestrador | Ambiente Linux alvo |
+| --- | --- | --- | --- |
+| Windows 11 | Implementação inicial | PowerShell | Ubuntu via WSL2 |
+| Ubuntu nativo | Futuro/TODO | Bash | Ubuntu local |
+| macOS | Fora do escopo atual | A definir | A definir |
+
+Consulte [`docs/platforms.md`](docs/platforms.md) para o contrato de plataformas e os TODOs de expansão.
 
 ## Uso rápido futuro
 
-Quando o projeto estiver implementado, o uso rápido esperado será:
+Quando o projeto estiver implementado para Windows 11:
 
 ```powershell
-irm https://raw.githubusercontent.com/thefordexter/workstation-bootstrap/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/gut0leao/workstation-bootstrap/main/install.ps1 | iex
 ```
 
 ## Uso recomendado futuro
 
 ```powershell
-irm https://raw.githubusercontent.com/thefordexter/workstation-bootstrap/main/install.ps1 -OutFile install.ps1
+irm https://raw.githubusercontent.com/gut0leao/workstation-bootstrap/main/install.ps1 -OutFile install.ps1
 notepad install.ps1
 .\install.ps1
 ```
@@ -48,7 +63,7 @@ notepad install.ps1
 ## Uso após clone
 
 ```powershell
-git clone https://github.com/thefordexter/workstation-bootstrap.git
+git clone https://github.com/gut0leao/workstation-bootstrap.git
 cd workstation-bootstrap
 .\bootstrap.ps1
 ```
@@ -56,29 +71,38 @@ cd workstation-bootstrap
 ## Arquitetura geral
 
 ```text
-Windows 11 host
-│
-├── PowerShell bootstrap
-├── WSL2
-├── Ubuntu
-├── WezTerm
-├── VS Code
-├── Nerd Fonts
-└── .wslconfig
+Host suportado
+|
+|-- Orquestrador do host
+|-- Gerenciador de pacotes do host
+|-- Aplicativos gráficos/opcionais do host
+|-- Terminal/editor/fontes do host
+`-- Ambiente Linux gerenciado
 
-Ubuntu / WSL
-│
-├── zsh
-├── Starship
-├── eza
-├── zoxide
-├── fzf
-├── bat
-├── ripgrep
-├── fd
-├── btop
-├── direnv
-└── ferramentas de desenvolvimento
+Escopo atual: Windows 11 host
+|
+|-- PowerShell bootstrap
+|-- winget
+|-- WSL2
+|-- Ubuntu no WSL
+|-- WezTerm
+|-- VS Code
+|-- Nerd Fonts
+`-- .wslconfig
+
+Ambiente Linux gerenciado: Ubuntu
+|
+|-- zsh
+|-- Starship
+|-- eza
+|-- zoxide
+|-- fzf
+|-- bat
+|-- ripgrep
+|-- fd
+|-- btop
+|-- direnv
+`-- ferramentas de desenvolvimento
 ```
 
 ## Documentação
@@ -87,6 +111,7 @@ Ubuntu / WSL
 - [`docs/vision.md`](docs/vision.md): visão e filosofia do projeto.
 - [`docs/requirements.md`](docs/requirements.md): requisitos funcionais e técnicos.
 - [`docs/architecture.md`](docs/architecture.md): arquitetura planejada.
+- [`docs/platforms.md`](docs/platforms.md): contrato de plataformas, escopo atual e TODOs para Ubuntu host.
 - [`docs/roadmap.md`](docs/roadmap.md): evolução futura.
 - [`docs/decisions.md`](docs/decisions.md): decisões arquiteturais.
 - [`docs/tools.md`](docs/tools.md): ferramentas previstas e dicas de uso.
@@ -95,22 +120,34 @@ Ubuntu / WSL
 
 ## Primeira implementação esperada
 
-A primeira versão funcional deve implementar:
+A primeira versão funcional deve implementar apenas o fluxo Windows 11 + WSL2 + Ubuntu:
 
-1. `install.ps1` para instalação remota.
-2. `bootstrap.ps1` como orquestrador principal.
+1. `install.ps1` para instalação remota no Windows.
+2. `bootstrap.ps1` como orquestrador principal do host Windows.
 3. Verificações do Windows 11, PowerShell, admin, winget e WSL.
 4. Instalação/configuração do WSL2 e Ubuntu.
 5. Geração de `.wslconfig` baseada no hardware.
 6. Instalação do WezTerm e VS Code.
 7. Instalação de JetBrainsMono Nerd Font.
 8. Configuração do WezTerm usando `default_prog` com `wsl.exe -d Ubuntu --cd ~`, além de menu/atalhos para PowerShell, CMD e Ubuntu.
-9. Execução do bootstrap Linux dentro do Ubuntu.
+9. Execução do bootstrap Linux dentro do Ubuntu/WSL.
 10. Instalação/configuração de zsh, Starship e ferramentas de terminal.
+
+## TODOs de plataforma
+
+- Criar `install.sh` para Ubuntu host nativo.
+- Criar `bootstrap.sh` de host Linux, separado de `scripts/ubuntu/bootstrap.sh`.
+- Separar pacotes Ubuntu de uso geral dos pacotes específicos de WSL.
+- Criar lista de aplicativos de desktop Linux em `packages/ubuntu-desktop.*`.
+- Definir estratégia para VS Code no Ubuntu host.
+- Definir estratégia para terminal no Ubuntu host.
+- Adaptar backups para caminhos Linux nativos.
+- Criar validações para Ubuntu host sem WSL.
+- Garantir que configurações compartilhadas, como zsh e Starship, possam ser aplicadas tanto no WSL quanto no Ubuntu host.
 
 ## Validações esperadas
 
-No Windows:
+No host Windows:
 
 ```powershell
 wsl -l -v
@@ -135,23 +172,20 @@ btop --version
 direnv --version
 ```
 
-
 ## Configuração inicial incluída neste scaffold
 
 Este pacote inicial já inclui os arquivos de configuração que foram validados manualmente:
 
-- `config/wezterm/wezterm.lua`: configuração do WezTerm usando `default_prog` com `wsl.exe`, tema Tokyo Night, Acrylic, JetBrainsMono Nerd Font, launch menu e atalhos para PowerShell, CMD e Ubuntu.
+- `config/wezterm/wezterm.lua`: configuração do WezTerm para o escopo Windows usando `default_prog` com `wsl.exe`, tema Tokyo Night, Acrylic, JetBrainsMono Nerd Font, launch menu e atalhos para PowerShell, CMD e Ubuntu.
 - `config/zsh/.zshrc`: zsh limpo, sem Oh My Zsh, com histórico, autocomplete, aliases e integração condicional com zoxide, direnv e Starship.
 - `config/starship/starship.toml`: prompt minimalista e contextual para Git, Python, Node, PHP, Ruby, Docker e duração de comandos.
 
 ## Publicação no GitHub
 
-Este repositório será publicado manualmente no GitHub a partir da árvore local.
-
-O repositório público esperado é:
+Repositório público:
 
 ```text
-https://github.com/thefordexter/workstation-bootstrap
+https://github.com/gut0leao/workstation-bootstrap
 ```
 
-O branch principal esperado é `main`.
+O branch principal é `main`.

@@ -2,17 +2,26 @@
 
 O projeto deve suportar perfis para diferentes contextos de uso.
 
+Perfis não devem assumir que o host é sempre Windows. Cada perfil deve declarar intenções e capacidades; o orquestrador de cada host decide quais ações são aplicáveis.
+
 ## personal
 
 Perfil padrão para máquina pessoal.
 
-Características:
+Características no Windows 11:
 
 - pode assumir privilégios administrativos;
 - pode usar winget;
 - pode instalar fontes;
 - pode instalar ferramentas Windows;
 - pode configurar WSL e Ubuntu.
+
+Características futuras no Ubuntu host:
+
+- pode usar `sudo`;
+- pode usar `apt`;
+- pode instalar fontes do usuário ou do sistema;
+- pode configurar shell, prompt, editor e terminal localmente.
 
 ## corporate
 
@@ -21,10 +30,10 @@ Perfil conservador para máquinas corporativas.
 Características:
 
 - pode não ter privilégios administrativos;
-- winget pode estar bloqueado;
+- gerenciadores de pacotes podem estar bloqueados;
 - proxy pode ser obrigatório;
 - instalação de fontes pode ser bloqueada;
-- Hyper-V pode estar indisponível;
+- virtualização ou WSL podem estar indisponíveis no Windows;
 - scripts devem falhar de forma amigável.
 
 ## minimal
@@ -34,5 +43,6 @@ Perfil mínimo para instalar apenas o essencial.
 Características:
 
 - menor número de programas;
-- foco em WSL, Ubuntu, zsh e Starship;
-- menos alterações no host Windows.
+- foco em shell, prompt e ferramentas básicas;
+- no Windows, foco em WSL, Ubuntu, zsh e Starship;
+- no Ubuntu host futuro, foco no ambiente local sem aplicativos gráficos opcionais.

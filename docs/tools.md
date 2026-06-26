@@ -1,20 +1,28 @@
 # Ferramentas
 
+As ferramentas são classificadas entre ferramentas do host e ferramentas do ambiente Linux.
+
 ## WezTerm
 
-Terminal moderno usado no Windows como interface principal para o Ubuntu/WSL.
+Terminal moderno usado no escopo atual como interface principal do host Windows para o Ubuntu/WSL.
+
+TODO: decidir se WezTerm também será o terminal padrão no Ubuntu host ou se outro terminal será suportado primeiro.
 
 ## WSL2
 
 Camada de compatibilidade Linux integrada ao Windows.
 
+É específica do host Windows e não deve ser exigida quando o host futuro for Ubuntu nativo.
+
 ## Ubuntu
 
 Distribuição Linux principal para desenvolvimento.
 
+No escopo atual, roda dentro do WSL. No escopo futuro, também poderá ser o próprio host.
+
 ## VS Code
 
-Editor principal no Windows, integrado ao WSL.
+Editor principal no escopo atual, instalado no Windows e integrado ao WSL.
 
 Uso típico dentro do WSL:
 
@@ -22,15 +30,21 @@ Uso típico dentro do WSL:
 code .
 ```
 
+TODO: definir estratégia de instalação e configuração do VS Code no Ubuntu host.
+
 ## zsh
 
 Shell interativo mais produtivo que o bash para uso diário.
+
+Configuração compartilhada entre Ubuntu/WSL e Ubuntu host futuro.
 
 ## Starship
 
 Prompt moderno e contextual.
 
 Mostra informações úteis como diretório, branch Git, status Git, linguagens e duração de comandos.
+
+Configuração compartilhada entre Ubuntu/WSL e Ubuntu host futuro.
 
 ## eza
 

@@ -7,15 +7,17 @@ Este projeto é mantido em parceria entre o desenvolvedor humano e agentes de IA
 - Priorizar clareza em vez de mágica.
 - Scripts Windows devem ser escritos em PowerShell.
 - Scripts Linux devem ser escritos em Bash.
-- A primeira plataforma alvo é Windows 11 + WSL2 + Ubuntu.
-- O PowerShell no Windows é o orquestrador principal.
-- O Ubuntu/WSL é o ambiente principal de desenvolvimento.
+- O desenho do projeto deve ser agnóstico quanto ao host.
+- A implementação inicial suportada é Windows 11 + WSL2 + Ubuntu.
+- O PowerShell no Windows é o orquestrador principal apenas no escopo Windows.
+- O Ubuntu/WSL é o ambiente principal de desenvolvimento no escopo atual.
+- Ubuntu nativo como host é escopo futuro e deve aparecer como TODO quando decisões forem afetadas.
 - Toda alteração deve ser idempotente.
 - Rodar o bootstrap mais de uma vez não deve quebrar o ambiente.
 - Nunca sobrescrever arquivos de configuração sem backup.
 - Sempre criar backups com timestamp antes de substituir configurações existentes.
 - Toda ferramenta deve poder ser habilitada ou desabilitada por configuração.
-- Manter separação clara entre host Windows e Ubuntu/WSL.
+- Manter separação clara entre host, orquestrador e ambiente Linux gerenciado.
 - Preferir soluções oficiais ou amplamente adotadas.
 - Tratar erros com mensagens legíveis.
 - Não executar comandos destrutivos sem confirmação explícita.
@@ -35,12 +37,13 @@ Este projeto é mantido em parceria entre o desenvolvedor humano e agentes de IA
 ## Convenções
 
 - O nome do projeto é `workstation-bootstrap`.
-- O repositório público esperado é `thefordexter/workstation-bootstrap`.
+- O repositório público esperado é `gut0leao/workstation-bootstrap`.
 - O branch principal esperado é `main`.
 - Configurações versionadas ficam em `config/`.
 - Listas de pacotes ficam em `packages/`.
 - Scripts Windows ficam em `scripts/windows/`.
 - Scripts Ubuntu ficam em `scripts/ubuntu/`.
+- Scripts futuros de host Ubuntu devem ser Bash e não devem depender de WSL.
 
 ## Tarefa inicial para agentes
 
@@ -50,6 +53,7 @@ Antes de implementar código, leia:
 2. `docs/vision.md`;
 3. `docs/requirements.md`;
 4. `docs/architecture.md`;
-5. `docs/decisions.md`.
+5. `docs/decisions.md`;
+6. `docs/platforms.md`.
 
 Depois implemente incrementalmente, validando cada etapa.

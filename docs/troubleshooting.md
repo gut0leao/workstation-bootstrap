@@ -2,6 +2,8 @@
 
 ## WSL não instala
 
+Aplica-se apenas ao host Windows.
+
 Verificar:
 
 ```powershell
@@ -17,6 +19,8 @@ Verificar recursos Windows:
 
 ## Alterações no `.wslconfig` não surtiram efeito
 
+Aplica-se apenas ao host Windows.
+
 Executar:
 
 ```powershell
@@ -25,7 +29,9 @@ wsl --shutdown
 
 Depois abrir novamente o Ubuntu.
 
-## WezTerm não abre direto no Ubuntu
+## WezTerm não abre direto no Ubuntu/WSL
+
+Aplica-se ao fluxo Windows atual.
 
 Verificar o nome da distribuição:
 
@@ -33,11 +39,13 @@ Verificar o nome da distribuição:
 wsl -l -v
 ```
 
-Ajustar `config.default_domain` no `wezterm.lua`.
+Ajustar `config.default_prog` no `wezterm.lua`.
 
 ## Fonte Nerd Font não aparece
 
-Verificar se a fonte foi instalada no Windows e reiniciar o WezTerm.
+No Windows, verificar se a fonte foi instalada e reiniciar o WezTerm.
+
+TODO: documentar validação de fontes no Ubuntu host quando esse fluxo existir.
 
 ## `bat` não encontrado
 
@@ -60,3 +68,7 @@ Verificar:
 ```bash
 starship --version
 ```
+
+## Ubuntu host nativo
+
+TODO: adicionar problemas comuns quando o fluxo Ubuntu host for implementado.
