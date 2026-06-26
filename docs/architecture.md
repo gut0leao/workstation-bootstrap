@@ -97,6 +97,7 @@ workstation-bootstrap/
 |-- packages/
 |-- scripts/
 |   |-- windows/
+|   |   `-- lib/
 |   `-- ubuntu/
 |-- docs/
 `-- TODO: install.sh / bootstrap.sh para Ubuntu host
@@ -117,6 +118,8 @@ Também deve expor o modo `-Reset` para retestes controlados no host Windows.
 ### `scripts/windows/`
 
 Scripts especializados para tarefas do host Windows.
+
+`scripts/windows/lib/` contém funções compartilhadas usadas pelo orquestrador e pelos scripts especializados.
 
 ### `scripts/ubuntu/`
 
