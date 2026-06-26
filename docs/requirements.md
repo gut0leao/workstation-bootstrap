@@ -198,6 +198,17 @@ Regras:
 - respeitar `-DryRun` e `-SkipWSL`;
 - informar quando uma reinicialização do Windows puder ser necessária.
 
+## WezTerm
+
+Regras:
+
+- aplicar `config/wezterm/wezterm.lua` em `%USERPROFILE%\.config\wezterm\wezterm.lua`;
+- criar diretório de destino quando necessário;
+- criar backup com timestamp antes de substituir configuração existente;
+- não reescrever quando o conteúdo já estiver atualizado;
+- respeitar `-DryRun`;
+- registrar arquivo aplicado e backups no manifesto.
+
 ## Resultado esperado atual
 
 Ao final do fluxo Windows, abrir o WezTerm no Windows deve levar diretamente ao Ubuntu/WSL usando zsh com Starship configurado, fonte Nerd Font e ferramentas modernas instaladas.

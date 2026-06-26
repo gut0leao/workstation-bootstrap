@@ -325,6 +325,19 @@ function Add-ManagedWslDistribution {
   $State.managed.wslDistributions = @($existingDistributions + $distribution)
 }
 
+function Get-BackupPath {
+  param([Parameter(Mandatory)][string]$Path)
+
+  $timestamp = Get-Date -Format 'yyyyMMdd-HHmmss'
+  return "$Path.backup-$timestamp"
+}
+
+function ConvertTo-ComparableConfigContent {
+  param([Parameter(Mandatory)][string]$Content)
+
+  return (($Content -replace "`r`n", "`n") -replace "`r", "`n").TrimEnd()
+}
+
 function Invoke-ResetGuard {
   param(
     [Parameter(Mandatory)][bool]$Reset,

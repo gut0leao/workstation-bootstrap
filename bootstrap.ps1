@@ -33,6 +33,7 @@ $projectRoot = $PSScriptRoot
 . (Join-Path $projectRoot 'scripts/windows/install-winget-packages.ps1')
 . (Join-Path $projectRoot 'scripts/windows/configure-wslconfig.ps1')
 . (Join-Path $projectRoot 'scripts/windows/install-wsl.ps1')
+. (Join-Path $projectRoot 'scripts/windows/configure-wezterm.ps1')
 
 Initialize-BootstrapContext -ProjectRoot $projectRoot
 
@@ -91,6 +92,10 @@ try {
         -DistributionName ([string]$config.wslDistribution) `
         -IsDryRun ([bool]$DryRun)
     }
+
+    Set-WezTermConfig `
+      -State $state `
+      -IsDryRun ([bool]$DryRun)
   }
 
   Invoke-PendingImplementationGuards `

@@ -127,6 +127,8 @@ Scripts especializados para tarefas do host Windows.
 
 `scripts/windows/install-wsl.ps1` detecta a distro WSL configurada, instala quando ausente e registra no manifesto apenas distros criadas pelo projeto.
 
+`scripts/windows/configure-wezterm.ps1` aplica a configuração versionada do WezTerm com backup, idempotência e registro no manifesto.
+
 ### `scripts/ubuntu/`
 
 Scripts especializados para tarefas Ubuntu. Hoje eles rodam dentro do WSL. No futuro, devem ser reutilizáveis pelo fluxo Ubuntu host quando não dependerem de WSL.

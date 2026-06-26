@@ -15,6 +15,7 @@
 - Verificar Windows 11, PowerShell, admin e winget.
 - Instalar WezTerm e VS Code.
 - Instalar apps Windows declarados em `packages/windows.json` com `DryRun` e idempotência.
+- Aplicar configuração versionada do WezTerm com backup e idempotência.
 
 ## Fase 3 — WSL e Ubuntu
 
