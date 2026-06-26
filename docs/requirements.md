@@ -173,6 +173,18 @@ wezterm.lua.backup-20260626-153000
 .wslconfig.backup-20260626-153000
 ```
 
+## `.wslconfig`
+
+Regras:
+
+- gerar a partir de `config/wsl/wslconfig.template`;
+- calcular memória, processadores e swap de forma conservadora;
+- preservar `.wslconfig` existente se os dados de hardware não puderem ser lidos com segurança;
+- criar backup com timestamp antes de substituir arquivo existente;
+- não reescrever quando o conteúdo já estiver atualizado;
+- respeitar `-DryRun` e `-SkipWSL`;
+- registrar arquivo aplicado e backups no manifesto.
+
 ## Resultado esperado atual
 
 Ao final do fluxo Windows, abrir o WezTerm no Windows deve levar diretamente ao Ubuntu/WSL usando zsh com Starship configurado, fonte Nerd Font e ferramentas modernas instaladas.

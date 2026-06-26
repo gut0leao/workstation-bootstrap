@@ -253,6 +253,53 @@ function Add-ManagedWindowsApp {
   $State.managed.windowsApps = @($existingApps + $app)
 }
 
+function Add-ManagedConfigFile {
+  param(
+    [Parameter(Mandatory)]$State,
+    [Parameter(Mandatory)][string]$Name,
+    [Parameter(Mandatory)][string]$Path,
+    [Parameter(Mandatory)][string]$Source
+  )
+
+  $existingFiles = @($State.managed.configFiles)
+  $alreadyTracked = $existingFiles | Where-Object { $_.path -eq $Path } | Select-Object -First 1
+
+  if ($alreadyTracked) {
+    $alreadyTracked.lastAppliedAt = (Get-Date).ToUniversalTime().ToString('o')
+    $alreadyTracked.source = $Source
+    return
+  }
+
+  $file = [ordered]@{
+    name          = $Name
+    path          = $Path
+    source        = $Source
+    appliedAt     = (Get-Date).ToUniversalTime().ToString('o')
+    lastAppliedAt = (Get-Date).ToUniversalTime().ToString('o')
+  }
+
+  $State.managed.configFiles = @($existingFiles + $file)
+}
+
+function Add-ManagedBackup {
+  param(
+    [Parameter(Mandatory)]$State,
+    [Parameter(Mandatory)][string]$OriginalPath,
+    [Parameter(Mandatory)][string]$BackupPath,
+    [Parameter(Mandatory)][string]$Reason
+  )
+
+  $existingBackups = @($State.managed.backups)
+  $backup = [ordered]@{
+    originalPath = $OriginalPath
+    backupPath   = $BackupPath
+    reason       = $Reason
+    createdAt    = (Get-Date).ToUniversalTime().ToString('o')
+  }
+
+  $State.managed.backups = @($existingBackups + $backup)
+}
+
 function Invoke-ResetGuard {
   param(
     [Parameter(Mandatory)][bool]$Reset,
@@ -283,7 +330,7 @@ function Invoke-PendingImplementationGuards {
     return
   }
 
-  Add-SummaryItem -Bucket Pending -Message "WSL/Ubuntu installation and configuration are not implemented yet."
+  Add-SummaryItem -Bucket Pending -Message "WSL/Ubuntu installation is not implemented yet."
   Add-SummaryItem -Bucket Pending -Message "Ubuntu package bootstrap is not implemented yet."
 
   if ($Export) {

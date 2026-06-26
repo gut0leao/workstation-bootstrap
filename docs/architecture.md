@@ -123,6 +123,8 @@ Scripts especializados para tarefas do host Windows.
 
 `scripts/windows/install-winget-packages.ps1` instala aplicativos Windows declarados em `packages/windows.json`, respeitando `DryRun`, `enabled` e estado atual do sistema.
 
+`scripts/windows/configure-wslconfig.ps1` gera `%USERPROFILE%\.wslconfig` a partir de `config/wsl/wslconfig.template`, cria backup antes de substituir e registra o arquivo no manifesto.
+
 ### `scripts/ubuntu/`
 
 Scripts especializados para tarefas Ubuntu. Hoje eles rodam dentro do WSL. No futuro, devem ser reutilizáveis pelo fluxo Ubuntu host quando não dependerem de WSL.

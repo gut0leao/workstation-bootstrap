@@ -31,6 +31,7 @@ $projectRoot = $PSScriptRoot
 . (Join-Path $projectRoot 'scripts/windows/lib/bootstrap-common.ps1')
 . (Join-Path $projectRoot 'scripts/windows/check-prereqs.ps1')
 . (Join-Path $projectRoot 'scripts/windows/install-winget-packages.ps1')
+. (Join-Path $projectRoot 'scripts/windows/configure-wslconfig.ps1')
 
 Initialize-BootstrapContext -ProjectRoot $projectRoot
 
@@ -72,6 +73,15 @@ try {
     }
     else {
       Invoke-WingetPackageInstall `
+        -State $state `
+        -IsDryRun ([bool]$DryRun)
+    }
+
+    if ($SkipWSL) {
+      Add-SummaryItem -Bucket Ignored -Message "Skipped .wslconfig generation because -SkipWSL was provided."
+    }
+    else {
+      Set-WslConfig `
         -State $state `
         -IsDryRun ([bool]$DryRun)
     }

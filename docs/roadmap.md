@@ -22,6 +22,7 @@
 - Instalar Ubuntu.
 - Validar `wsl --status` e `wsl -l -v`.
 - Gerar `.wslconfig`.
+- Criar backup antes de substituir `.wslconfig`.
 
 ## Fase 4 — Bootstrap Ubuntu no WSL
 
