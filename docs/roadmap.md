@@ -23,6 +23,7 @@
 - Validar `wsl --status` e `wsl -l -v`.
 - Gerar `.wslconfig`.
 - Criar backup antes de substituir `.wslconfig`.
+- Não recriar nem assumir ownership de distros WSL pré-existentes.
 
 ## Fase 4 — Bootstrap Ubuntu no WSL
 

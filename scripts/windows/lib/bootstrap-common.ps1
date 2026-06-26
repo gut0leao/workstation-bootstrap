@@ -300,6 +300,31 @@ function Add-ManagedBackup {
   $State.managed.backups = @($existingBackups + $backup)
 }
 
+function Add-ManagedWslDistribution {
+  param(
+    [Parameter(Mandatory)]$State,
+    [Parameter(Mandatory)][string]$Name,
+    [Parameter(Mandatory)][string]$Source
+  )
+
+  $existingDistributions = @($State.managed.wslDistributions)
+  $alreadyTracked = $existingDistributions | Where-Object { $_.name -eq $Name } | Select-Object -First 1
+
+  if ($alreadyTracked) {
+    $alreadyTracked.lastSeenAt = (Get-Date).ToUniversalTime().ToString('o')
+    return
+  }
+
+  $distribution = [ordered]@{
+    name        = $Name
+    source      = $Source
+    createdAt   = (Get-Date).ToUniversalTime().ToString('o')
+    lastSeenAt  = (Get-Date).ToUniversalTime().ToString('o')
+  }
+
+  $State.managed.wslDistributions = @($existingDistributions + $distribution)
+}
+
 function Invoke-ResetGuard {
   param(
     [Parameter(Mandatory)][bool]$Reset,
@@ -330,7 +355,6 @@ function Invoke-PendingImplementationGuards {
     return
   }
 
-  Add-SummaryItem -Bucket Pending -Message "WSL/Ubuntu installation is not implemented yet."
   Add-SummaryItem -Bucket Pending -Message "Ubuntu package bootstrap is not implemented yet."
 
   if ($Export) {

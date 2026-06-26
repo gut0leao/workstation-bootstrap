@@ -78,6 +78,7 @@ O bootstrap Windows já executa uma base funcional:
 - verifica pré-requisitos do host Windows;
 - instala aplicativos Windows habilitados em `packages/windows.json` via `winget`;
 - gera `%USERPROFILE%\.wslconfig` a partir de `config/wsl/wslconfig.template`;
+- detecta a distro WSL configurada e prepara instalação quando ela não existe;
 - respeita `-DryRun`;
 - respeita `-SkipWindowsApps`;
 - respeita `-SkipWSL`;
@@ -149,7 +150,7 @@ A primeira versão funcional deve implementar apenas o fluxo Windows 11 + WSL2 +
 3. Verificações do Windows 11, PowerShell, admin, winget e WSL.
 4. Instalação do WezTerm e VS Code via `winget`.
 5. Geração de `.wslconfig` baseada no hardware.
-6. Instalação/configuração do WSL2 e Ubuntu.
+6. Detecção/instalação conservadora do WSL2 e Ubuntu.
 7. Instalação de JetBrainsMono Nerd Font.
 8. Configuração do WezTerm usando `default_prog` com `wsl.exe -d Ubuntu --cd ~`, além de menu/atalhos para PowerShell, CMD e Ubuntu.
 9. Execução do bootstrap Linux dentro do Ubuntu/WSL.

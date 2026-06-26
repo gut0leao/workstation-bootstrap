@@ -17,6 +17,8 @@ Verificar recursos Windows:
 - Virtual Machine Platform;
 - virtualização habilitada no firmware/BIOS.
 
+Se o bootstrap informar que a distro já existe, ela não será marcada como gerenciada pelo projeto. Isso evita que um reset futuro remova uma distro criada manualmente.
+
 ## Alterações no `.wslconfig` não surtiram efeito
 
 Aplica-se apenas ao host Windows.

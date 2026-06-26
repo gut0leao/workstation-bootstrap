@@ -125,6 +125,8 @@ Scripts especializados para tarefas do host Windows.
 
 `scripts/windows/configure-wslconfig.ps1` gera `%USERPROFILE%\.wslconfig` a partir de `config/wsl/wslconfig.template`, cria backup antes de substituir e registra o arquivo no manifesto.
 
+`scripts/windows/install-wsl.ps1` detecta a distro WSL configurada, instala quando ausente e registra no manifesto apenas distros criadas pelo projeto.
+
 ### `scripts/ubuntu/`
 
 Scripts especializados para tarefas Ubuntu. Hoje eles rodam dentro do WSL. No futuro, devem ser reutilizáveis pelo fluxo Ubuntu host quando não dependerem de WSL.

@@ -185,6 +185,19 @@ Regras:
 - respeitar `-DryRun` e `-SkipWSL`;
 - registrar arquivo aplicado e backups no manifesto.
 
+## WSL e Ubuntu
+
+Regras:
+
+- detectar `wsl.exe` antes de tentar instalar;
+- listar distros existentes com `wsl --list --quiet`;
+- usar `config/workstation.json` para escolher a distro alvo;
+- não recriar distro existente;
+- não registrar distro pré-existente como gerenciada pelo projeto;
+- registrar no manifesto apenas distro criada pelo projeto;
+- respeitar `-DryRun` e `-SkipWSL`;
+- informar quando uma reinicialização do Windows puder ser necessária.
+
 ## Resultado esperado atual
 
 Ao final do fluxo Windows, abrir o WezTerm no Windows deve levar diretamente ao Ubuntu/WSL usando zsh com Starship configurado, fonte Nerd Font e ferramentas modernas instaladas.

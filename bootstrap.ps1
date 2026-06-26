@@ -32,6 +32,7 @@ $projectRoot = $PSScriptRoot
 . (Join-Path $projectRoot 'scripts/windows/check-prereqs.ps1')
 . (Join-Path $projectRoot 'scripts/windows/install-winget-packages.ps1')
 . (Join-Path $projectRoot 'scripts/windows/configure-wslconfig.ps1')
+. (Join-Path $projectRoot 'scripts/windows/install-wsl.ps1')
 
 Initialize-BootstrapContext -ProjectRoot $projectRoot
 
@@ -83,6 +84,11 @@ try {
     else {
       Set-WslConfig `
         -State $state `
+        -IsDryRun ([bool]$DryRun)
+
+      Install-WslDistribution `
+        -State $state `
+        -DistributionName ([string]$config.wslDistribution) `
         -IsDryRun ([bool]$DryRun)
     }
   }
