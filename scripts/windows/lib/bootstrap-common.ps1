@@ -139,6 +139,7 @@ function New-StateManifest {
     managed       = [ordered]@{
       windowsApps      = @()
       wslDistributions = @()
+      fonts            = @()
       configFiles      = @()
       backups          = @()
     }
@@ -323,6 +324,37 @@ function Add-ManagedWslDistribution {
   }
 
   $State.managed.wslDistributions = @($existingDistributions + $distribution)
+}
+
+function Add-ManagedFont {
+  param(
+    [Parameter(Mandatory)]$State,
+    [Parameter(Mandatory)][string]$Name,
+    [Parameter(Mandatory)][string]$Path,
+    [Parameter(Mandatory)][string]$Source
+  )
+
+  if (-not ($State.managed.PSObject.Properties.Name -contains 'fonts')) {
+    $State.managed | Add-Member -MemberType NoteProperty -Name fonts -Value @()
+  }
+
+  $existingFonts = @($State.managed.fonts)
+  $alreadyTracked = $existingFonts | Where-Object { $_.name -eq $Name -and $_.path -eq $Path } | Select-Object -First 1
+
+  if ($alreadyTracked) {
+    $alreadyTracked.lastSeenAt = (Get-Date).ToUniversalTime().ToString('o')
+    return
+  }
+
+  $font = [ordered]@{
+    name        = $Name
+    path        = $Path
+    source      = $Source
+    installedAt = (Get-Date).ToUniversalTime().ToString('o')
+    lastSeenAt  = (Get-Date).ToUniversalTime().ToString('o')
+  }
+
+  $State.managed.fonts = @($existingFonts + $font)
 }
 
 function Get-BackupPath {

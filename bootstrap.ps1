@@ -34,6 +34,7 @@ $projectRoot = $PSScriptRoot
 . (Join-Path $projectRoot 'scripts/windows/configure-wslconfig.ps1')
 . (Join-Path $projectRoot 'scripts/windows/install-wsl.ps1')
 . (Join-Path $projectRoot 'scripts/windows/configure-wezterm.ps1')
+. (Join-Path $projectRoot 'scripts/windows/install-fonts.ps1')
 
 Initialize-BootstrapContext -ProjectRoot $projectRoot
 
@@ -94,6 +95,10 @@ try {
     }
 
     Set-WezTermConfig `
+      -State $state `
+      -IsDryRun ([bool]$DryRun)
+
+    Install-JetBrainsMonoNerdFont `
       -State $state `
       -IsDryRun ([bool]$DryRun)
   }

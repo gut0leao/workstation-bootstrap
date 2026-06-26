@@ -209,6 +209,16 @@ Regras:
 - respeitar `-DryRun`;
 - registrar arquivo aplicado e backups no manifesto.
 
+## Fontes
+
+Regras:
+
+- instalar JetBrainsMono Nerd Font para o usuário atual quando ausente;
+- detectar fonte existente antes de baixar ou copiar arquivos;
+- não registrar fonte pré-existente como gerenciada pelo projeto;
+- registrar no manifesto apenas fontes instaladas pelo projeto;
+- respeitar `-DryRun`.
+
 ## Resultado esperado atual
 
 Ao final do fluxo Windows, abrir o WezTerm no Windows deve levar diretamente ao Ubuntu/WSL usando zsh com Starship configurado, fonte Nerd Font e ferramentas modernas instaladas.

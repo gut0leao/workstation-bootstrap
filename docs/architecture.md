@@ -129,6 +129,8 @@ Scripts especializados para tarefas do host Windows.
 
 `scripts/windows/configure-wezterm.ps1` aplica a configuração versionada do WezTerm com backup, idempotência e registro no manifesto.
 
+`scripts/windows/install-fonts.ps1` instala JetBrainsMono Nerd Font para o usuário atual quando ausente e não assume ownership de fontes pré-existentes.
+
 ### `scripts/ubuntu/`
 
 Scripts especializados para tarefas Ubuntu. Hoje eles rodam dentro do WSL. No futuro, devem ser reutilizáveis pelo fluxo Ubuntu host quando não dependerem de WSL.
