@@ -38,6 +38,7 @@ $projectRoot = $PSScriptRoot
 . (Join-Path $projectRoot 'scripts/windows/configure-vscode.ps1')
 . (Join-Path $projectRoot 'scripts/windows/invoke-ubuntu-bootstrap.ps1')
 . (Join-Path $projectRoot 'scripts/windows/export-config.ps1')
+. (Join-Path $projectRoot 'scripts/windows/reset.ps1')
 
 Initialize-BootstrapContext -ProjectRoot $projectRoot
 
@@ -68,12 +69,14 @@ try {
     -SkipWindowsApps ([bool]$SkipWindowsApps) `
     -SkipWSL ([bool]$SkipWSL)
 
-  Invoke-ResetGuard `
-    -Reset ([bool]$Reset) `
-    -ResetScope $ResetScope `
-    -ConfirmDestructive ([bool]$ConfirmDestructive)
-
-  if (-not $Reset) {
+  if ($Reset) {
+    Invoke-Reset `
+      -State $state `
+      -ResetScope $ResetScope `
+      -IsDryRun ([bool]$DryRun) `
+      -ConfirmDestructive ([bool]$ConfirmDestructive)
+  }
+  else {
     if ($SkipWindowsApps) {
       Add-SummaryItem -Bucket Ignored -Message "Skipped Windows app installation because -SkipWindowsApps was provided."
     }

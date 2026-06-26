@@ -151,6 +151,7 @@ Requisitos:
 5. O resumo final deve listar ações executadas, ignoradas e pendentes.
 6. Quando possível, restaurar backups em vez de apagar arquivos.
 7. Pacotes e aplicativos não devem ser removidos se não houver evidência de que são gerenciados pelo projeto.
+8. O reset de pacotes Ubuntu deve ser conservador enquanto não houver rastreio confiável de ownership por pacote.
 
 Escopos iniciais no Windows:
 

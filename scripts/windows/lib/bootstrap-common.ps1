@@ -398,26 +398,6 @@ function ConvertTo-ComparableConfigContent {
   return (($Content -replace "`r`n", "`n") -replace "`r", "`n").TrimEnd()
 }
 
-function Invoke-ResetGuard {
-  param(
-    [Parameter(Mandatory)][bool]$Reset,
-    [Parameter(Mandatory)][string]$ResetScope,
-    [Parameter(Mandatory)][bool]$ConfirmDestructive
-  )
-
-  if (-not $Reset) {
-    return
-  }
-
-  Write-Warn "Reset mode is not implemented yet. No reset actions were executed."
-
-  if ($ResetScope -in @('WSLDistro', 'WindowsApps', 'All') -and -not $ConfirmDestructive) {
-    Add-SummaryItem -Bucket Pending -Message "Reset scope '$ResetScope' is destructive and requires -ConfirmDestructive."
-  }
-
-  Add-SummaryItem -Bucket Pending -Message "Reset scope '$ResetScope' is documented but not implemented yet."
-}
-
 function Invoke-PendingImplementationGuards {
   param(
     [Parameter(Mandatory)][bool]$Reset,

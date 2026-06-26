@@ -190,6 +190,12 @@ Escopos planejados:
 
 Consulte [`docs/reset.md`](docs/reset.md).
 
+Validação sem remover nada:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\bootstrap.ps1 -Reset -ResetScope All -DryRun
+```
+
 ## TODOs de plataforma
 
 - Criar `install.sh` para Ubuntu host nativo.

@@ -98,7 +98,7 @@ Para testes destrutivos, usar uma distro WSL dedicada ao projeto e exigir confir
 .\bootstrap.ps1 -Reset -ResetScope WSLDistro -ConfirmDestructive
 ```
 
-TODO: implementar o fluxo acima.
+O reset só remove distros WSL registradas no manifesto como criadas pelo projeto. Distros pré-existentes são preservadas.
 
 ## Ubuntu host nativo
 

@@ -56,6 +56,21 @@ Responsabilidades do manifesto:
 - versões e timestamps de execução;
 - perfil usado.
 
+## Implementação Windows atual
+
+O reset Windows usa o manifesto local e só considera itens registrados como gerenciados pelo projeto.
+
+Escopos implementados:
+
+- `Config`: restaura arquivos gerenciados a partir do backup mais recente disponível.
+- `WindowsApps`: desinstala apenas apps Windows registrados como instalados pelo projeto.
+- `WSLDistro`: remove apenas distros WSL registradas como criadas pelo projeto.
+- `All`: combina os escopos acima.
+
+`UbuntuTools` é conservador: pacotes `apt` não são removidos porque ainda não há rastreio confiável de ownership por pacote.
+
+Operações destrutivas exigem `-ConfirmDestructive`. Sem essa confirmação, o reset apenas informa o que seria necessário.
+
 ## Ubuntu host futuro
 
 TODO: criar escopos equivalentes para Ubuntu host, evitando remoção indiscriminada de pacotes do sistema.
