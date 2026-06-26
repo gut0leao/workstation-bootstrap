@@ -82,6 +82,7 @@ O bootstrap Windows já executa uma base funcional:
 - aplica `config/wezterm/wezterm.lua` em `%USERPROFILE%\.config\wezterm\wezterm.lua`;
 - instala JetBrainsMono Nerd Font para o usuário atual quando ausente;
 - instala extensões VS Code declaradas em `packages/vscode-extensions.txt`;
+- executa `scripts/ubuntu/bootstrap.sh` dentro da distro WSL configurada;
 - respeita `-DryRun`;
 - respeita `-SkipWindowsApps`;
 - respeita `-SkipWSL`;

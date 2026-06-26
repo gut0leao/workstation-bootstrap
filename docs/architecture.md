@@ -133,9 +133,13 @@ Scripts especializados para tarefas do host Windows.
 
 `scripts/windows/configure-vscode.ps1` instala extensões declaradas em `packages/vscode-extensions.txt` e registra apenas extensões instaladas pelo projeto.
 
+`scripts/windows/invoke-ubuntu-bootstrap.ps1` chama `scripts/ubuntu/bootstrap.sh` dentro da distro WSL configurada.
+
 ### `scripts/ubuntu/`
 
 Scripts especializados para tarefas Ubuntu. Hoje eles rodam dentro do WSL. No futuro, devem ser reutilizáveis pelo fluxo Ubuntu host quando não dependerem de WSL.
+
+O bootstrap Ubuntu instala pacotes apt quando `sudo` está disponível de forma não interativa, aplica `.zshrc`, configura Starship, define `git init.defaultBranch` e valida ferramentas modernas.
 
 ### `config/`
 

@@ -229,6 +229,19 @@ Regras:
 - registrar no manifesto apenas extensões instaladas pelo projeto;
 - respeitar `-DryRun`.
 
+## Bootstrap Ubuntu no WSL
+
+Regras:
+
+- executar `scripts/ubuntu/bootstrap.sh` dentro da distro WSL configurada;
+- aceitar `--dry-run`;
+- aceitar `--skip-ubuntu-packages`;
+- não travar aguardando senha de `sudo`;
+- quando `sudo` não estiver disponível de forma não interativa, registrar pendência com comando manual;
+- aplicar `.zshrc` e `starship.toml` com backup;
+- configurar `git init.defaultBranch=main`;
+- validar ferramentas modernas após instalação.
+
 ## Resultado esperado atual
 
 Ao final do fluxo Windows, abrir o WezTerm no Windows deve levar diretamente ao Ubuntu/WSL usando zsh com Starship configurado, fonte Nerd Font e ferramentas modernas instaladas.

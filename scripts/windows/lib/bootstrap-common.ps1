@@ -428,8 +428,6 @@ function Invoke-PendingImplementationGuards {
     return
   }
 
-  Add-SummaryItem -Bucket Pending -Message "Ubuntu package bootstrap is not implemented yet."
-
   if ($Export) {
     Add-SummaryItem -Bucket Pending -Message "Export mode is not implemented yet."
   }

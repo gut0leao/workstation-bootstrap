@@ -71,6 +71,17 @@ Verificar:
 starship --version
 ```
 
+## Bootstrap Ubuntu não instala pacotes apt
+
+O bootstrap Ubuntu não aguarda senha de `sudo` para evitar travamentos em execução automatizada.
+
+Se o resumo indicar que `sudo` não está disponível de forma não interativa, execute manualmente dentro do Ubuntu:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y eza zoxide fzf bat ripgrep fd-find btop direnv
+```
+
 ## Quero retestar o bootstrap do zero
 
 Não desinstale tudo manualmente como primeira opção.

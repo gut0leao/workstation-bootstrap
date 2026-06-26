@@ -36,6 +36,7 @@ $projectRoot = $PSScriptRoot
 . (Join-Path $projectRoot 'scripts/windows/configure-wezterm.ps1')
 . (Join-Path $projectRoot 'scripts/windows/install-fonts.ps1')
 . (Join-Path $projectRoot 'scripts/windows/configure-vscode.ps1')
+. (Join-Path $projectRoot 'scripts/windows/invoke-ubuntu-bootstrap.ps1')
 
 Initialize-BootstrapContext -ProjectRoot $projectRoot
 
@@ -93,6 +94,11 @@ try {
         -State $state `
         -DistributionName ([string]$config.wslDistribution) `
         -IsDryRun ([bool]$DryRun)
+
+      Invoke-UbuntuBootstrap `
+        -DistributionName ([string]$config.wslDistribution) `
+        -IsDryRun ([bool]$DryRun) `
+        -SkipUbuntuPackages ([bool]$SkipUbuntuPackages)
     }
 
     Set-WezTermConfig `

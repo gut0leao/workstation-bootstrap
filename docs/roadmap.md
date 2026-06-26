@@ -34,6 +34,8 @@
 - Configurar zsh.
 - Instalar/configurar Starship.
 - Instalar/configurar ferramentas modernas.
+- Chamar bootstrap Ubuntu a partir do PowerShell no host Windows.
+- Evitar prompts interativos de `sudo` em automação.
 
 ## Fase 5 — Export
 

@@ -4,6 +4,3 @@ processors={{WSL_PROCESSORS}}
 swap={{WSL_SWAP}}
 localhostForwarding=true
 nestedVirtualization=true
-autoMemoryReclaim=gradual
-dnsTunneling=true
-firewall=true
