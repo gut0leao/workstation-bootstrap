@@ -9,7 +9,7 @@
   ],
   "wslDistribution": "Ubuntu",
   "linuxEnvironment": "wsl",
-  "weztermTheme": "Tokyo Night",
+  "weztermTheme": "Dracula",
   "fontName": "JetBrainsMono Nerd Font",
   "installWindowsApps": true,
   "installUbuntuPackages": true,

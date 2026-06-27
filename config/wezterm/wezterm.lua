@@ -47,7 +47,7 @@ end)
 config.default_prog = { "wsl.exe", "-d", "Ubuntu", "--cd", "~" }
 
 -- Aparência
-config.color_scheme = "Tokyo Night"
+config.color_scheme = "Dracula"
 config.window_background_opacity = 0.92
 config.win32_system_backdrop = "Acrylic"
 

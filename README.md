@@ -245,7 +245,7 @@ direnv --version
 
 Este pacote inicial já inclui os arquivos de configuração que foram validados manualmente:
 
-- `config/wezterm/wezterm.lua`: configuração do WezTerm para o escopo Windows usando `default_prog` com `wsl.exe`, tema Tokyo Night, Acrylic, JetBrainsMono Nerd Font, launch menu e atalhos para copiar (`Ctrl+Shift+C`), PowerShell (`Ctrl+Shift+P`), CMD (`Ctrl+Shift+D`) e Ubuntu no diretório atual (`Ctrl+Shift+U`).
+- `config/wezterm/wezterm.lua`: configuração do WezTerm para o escopo Windows usando `default_prog` com `wsl.exe`, tema Dracula, Acrylic, JetBrainsMono Nerd Font, launch menu e atalhos para copiar (`Ctrl+Shift+C`), PowerShell (`Ctrl+Shift+P`), CMD (`Ctrl+Shift+D`) e Ubuntu no diretório atual (`Ctrl+Shift+U`).
 - `config/zsh/.zshrc`: zsh limpo, sem Oh My Zsh, com histórico, autocomplete, aliases e integração condicional com zoxide, direnv e Starship.
 - `config/starship/starship.toml`: prompt minimalista e contextual para Git, Python, Node, PHP, Ruby, Docker e duração de comandos.
 
